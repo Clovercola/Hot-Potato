@@ -1,0 +1,62 @@
+package me.CloverCola.HotPotato.TaggedPlayer;
+
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import me.CloverCola.HotPotato.HotPotatoMain;
+import me.CloverCola.HotPotato.StatusCheck;
+
+public class TaggedFireworks implements Listener {
+	
+	private static HotPotatoMain plugin;
+	
+	public TaggedFireworks() {
+		
+	}
+	
+	public TaggedFireworks(HotPotatoMain instance) {
+		plugin = instance;
+	}
+	
+	private Firework spawnFireworks(Player player) {
+		Location loc = player.getLocation();
+		Firework firework = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
+		FireworkEffect effect = buildFirework();
+		FireworkMeta meta = firework.getFireworkMeta();
+		meta.addEffect(effect);
+		firework.setFireworkMeta(meta);
+		return firework;
+	}
+	
+	public void fireworksTimer(Player player) {
+		StatusCheck check = new StatusCheck();
+		if (check.checkIfTagged(player) == false) {
+			return;
+		}
+		new BukkitRunnable(){
+			@Override
+			public void run() {
+				if (check.checkIfTagged(player) == false) {
+					cancel();
+				}
+				Firework firework = spawnFireworks(player);
+				firework.detonate();
+			}
+		}.runTaskTimer(plugin, 10, 10);
+	}
+	
+	private FireworkEffect buildFirework() {
+		Color red = Color.RED;
+		FireworkEffect builtFirework = FireworkEffect.builder().withColor(red).build();
+		return builtFirework;
+	}
+	
+	
+}
