@@ -3,8 +3,8 @@ package me.CloverCola.HotPotato.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import me.CloverCola.HotPotato.LocationManager;
 import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
 import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class JoinCommand {
