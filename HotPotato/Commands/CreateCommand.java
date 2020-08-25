@@ -23,7 +23,7 @@ public class CreateCommand {
 	public void createArena(Player player, String name) {
 		LocationManager arenaCreator = new LocationManager();
 		if (ArenaExistance.doesArenaExist(arenaCreator, player, name) == true) {
-			player.sendMessage(ChatColor.RED + "The arena " + name + "already exists!");
+			player.sendMessage(ChatColor.RED + "The arena " + name + " already exists!");
 			return;
 		}
 		arenaCreator.getConfig().set("locations.arenas." + name + ".enabled", false);

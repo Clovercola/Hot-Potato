@@ -32,6 +32,7 @@ public class EntranceCommand {
 		LocationSerializationUtility util = new LocationSerializationUtility();
 		String loc = util.createLocationFromPlayer(player);
 		entranceSetter.getConfig().set("locations.arenas." + name + ".entrance", loc);
+		player.sendMessage(ChatColor.GREEN + "Entrance for " + name + " set!");
 		return;
 	}
 	

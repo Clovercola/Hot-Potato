@@ -13,27 +13,27 @@ public class DisableCommand {
 	}
 	
 	public void disableCommandChecker(Player player, String[] args) {
-		//hotpotato disable <arena>
 		if (args.length == 2) {
 			disableArena(player, args);
+			return;
 		}
 		player.sendMessage(ChatColor.RED + "Usage: /hotpotato disable <arena>");
 		return;
 	}
 	
 	public void disableArena(Player player, String[] args) {
-		LocationManager enable = new LocationManager();
+		LocationManager disable = new LocationManager();
 		String name = args[1];
-		if (ArenaExistance.doesArenaExist(enable, player, name) == false) {
+		if (ArenaExistance.doesArenaExist(disable, player, name) == false) {
 			return;
 		}
-		if (enable.getConfig().getBoolean("locations.arenas." + name + ".enabled") == true) {
-			player.sendMessage(ChatColor.RED + "That arena is already enabled!");
+		if (disable.getConfig().getBoolean("locations.arenas." + name + ".enabled") == false) {
+			player.sendMessage(ChatColor.RED + "That arena is already disabled!");
 			return;
 		}
-		enable.getConfig().set("locations.arenas." + name + ".enabled", true);
-		enable.saveConfig();
-		player.sendMessage(ChatColor.GREEN + "Arena " + name + " has been enabled!");
+		disable.getConfig().set("locations.arenas." + name + ".enabled", false);
+		disable.saveConfig();
+		player.sendMessage(ChatColor.GREEN + "Arena " + name + " has been disabled!");
 		return;
 	}
 	

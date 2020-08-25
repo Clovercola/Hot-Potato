@@ -36,25 +36,21 @@ public class Commands implements CommandExecutor {
 			CreateCommand create = new CreateCommand();
 			create.checkCreateCommand(player, args);
 			return;
-		case "ENTRANCE":
-			EntranceCommand entrance = new EntranceCommand();
-			entrance.checkEntranceCommand(player, args);
-			return;
-		case "SPAWN":
-			SpawnCommand spawn = new SpawnCommand();
-			spawn.checkSpawnCommand(player, args);
-			return;
-		case "ENABLE":
-			EnableCommand enable = new EnableCommand();
-			enable.enableCommandChecker(player, args);
+		case "DELETE":
+			DeleteCommand delete = new DeleteCommand();
+			delete.checkDeleteCommand(player, args);
 			return;
 		case "DISABLE":
 			DisableCommand disable = new DisableCommand();
 			disable.disableCommandChecker(player, args);
 			return;
-		case "DELETE":
-			DeleteCommand delete = new DeleteCommand();
-			delete.checkDeleteCommand(player, args);
+		case "ENABLE":
+			EnableCommand enable = new EnableCommand();
+			enable.enableCommandChecker(player, args);
+			return;
+		case "ENTRANCE":
+			EntranceCommand entrance = new EntranceCommand();
+			entrance.checkEntranceCommand(player, args);
 			return;
 		case "ITEM":
 			// TODO If items are implemented, finish and implement this class.
@@ -72,6 +68,10 @@ public class Commands implements CommandExecutor {
 		case "LOBBY":
 			LobbyCommand lobby = new LobbyCommand();
 			lobby.checkLobbyCommand(player, args);
+			return;
+		case "SPAWN":
+			SpawnCommand spawn = new SpawnCommand();
+			spawn.checkSpawnCommand(player, args);
 			return;
 		case "TEST":
 			StatusCheck check = new StatusCheck();
