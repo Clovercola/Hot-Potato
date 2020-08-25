@@ -32,6 +32,31 @@ public class Commands implements CommandExecutor {
 		}
 		String argument = args[0].toUpperCase();
 		switch (argument) {
+		case "CREATE":
+			CreateCommand create = new CreateCommand();
+			create.checkCreateCommand(player, args);
+			return;
+		case "DELETE":
+			DeleteCommand delete = new DeleteCommand();
+			delete.checkDeleteCommand(player, args);
+			return;
+		case "DISABLE":
+			DisableCommand disable = new DisableCommand();
+			disable.disableCommandChecker(player, args);
+			return;
+		case "ENABLE":
+			EnableCommand enable = new EnableCommand();
+			enable.enableCommandChecker(player, args);
+			return;
+		case "ENTRANCE":
+			EntranceCommand entrance = new EntranceCommand();
+			entrance.checkEntranceCommand(player, args);
+			return;
+		case "ITEM":
+			// TODO If items are implemented, finish and implement this class.
+			ItemCommand item = new ItemCommand();
+			item.checkItemCommand(player, args);
+			return;
 		case "JOIN":
 			JoinCommand join = new JoinCommand();
 			join.joinArena(player, args);
@@ -44,13 +69,9 @@ public class Commands implements CommandExecutor {
 			LobbyCommand lobby = new LobbyCommand();
 			lobby.checkLobbyCommand(player, args);
 			return;
-		case "ARENA":
-			ArenaCommand arena = new ArenaCommand();
-			arena.checkArenaCommand(player, args);
-			return;
-		case "ADMIN":
-			AdminCommands admin = new AdminCommands();
-			admin.checkAdminCommand(player, args);
+		case "SPAWN":
+			SpawnCommand spawn = new SpawnCommand();
+			spawn.checkSpawnCommand(player, args);
 			return;
 		case "TEST":
 			StatusCheck check = new StatusCheck();

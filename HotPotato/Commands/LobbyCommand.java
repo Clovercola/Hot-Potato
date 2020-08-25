@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import me.CloverCola.HotPotato.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationDeserializationUtility;
 
 public class LobbyCommand {
@@ -24,9 +24,7 @@ public class LobbyCommand {
 			options.setLobbyOptions(player, args);
 			return;
 		}
-		HelpCommand help = new HelpCommand();
-		help.hotPotatoHelp(player);
-		//TODO send help message here
+		player.sendMessage(ChatColor.RED + "Usage: /hotpotato lobby set");
 	}
 	
 	public void teleportToLobby(Player player) {
