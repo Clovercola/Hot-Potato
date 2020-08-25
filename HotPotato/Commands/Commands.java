@@ -50,7 +50,11 @@ public class Commands implements CommandExecutor {
 			return;
 		case "DISABLE":
 			DisableCommand disable = new DisableCommand();
-			disable.disableArena(player, args);
+			disable.disableCommandChecker(player, args);
+			return;
+		case "DELETE":
+			DeleteCommand delete = new DeleteCommand();
+			delete.checkDeleteCommand(player, args);
 			return;
 		case "ITEM":
 			// TODO If items are implemented, finish and implement this class.
