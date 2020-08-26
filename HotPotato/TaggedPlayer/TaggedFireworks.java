@@ -27,6 +27,7 @@ public class TaggedFireworks implements Listener {
 	
 	private Firework spawnFireworks(Player player) {
 		Location loc = player.getLocation();
+		loc.add(0, 2, 0);
 		Firework firework = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
 		FireworkEffect effect = buildFirework();
 		FireworkMeta meta = firework.getFireworkMeta();
@@ -49,7 +50,7 @@ public class TaggedFireworks implements Listener {
 				Firework firework = spawnFireworks(player);
 				firework.detonate();
 			}
-		}.runTaskTimer(plugin, 10, 10);
+		}.runTaskTimer(plugin, 20, 20);
 	}
 	
 	private FireworkEffect buildFirework() {
