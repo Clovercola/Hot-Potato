@@ -18,7 +18,7 @@ public class SetLobby {
 
 	}
 
-	public void setLobbyOptions(Player player, String[] args) {
+	public static void setLobbyOptions(Player player, String[] args) {
 		int setChoice = args.length;
 		switch (setChoice) {
 		case 2:
@@ -56,7 +56,7 @@ public class SetLobby {
 		}
 	}
 	
-	private void writeLobby(String locString, Player player) {
+	private static void writeLobby(String locString, Player player) {
 		LocationManager lobby = new LocationManager();
 		try {
 			lobby.getConfig().set("locations.lobby", locString);

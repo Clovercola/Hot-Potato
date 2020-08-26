@@ -20,15 +20,13 @@ public class LobbyCommand {
 			return;
 		}
 		if (args[1].equalsIgnoreCase("set")) {
-			SetLobby options = new SetLobby();
-			options.setLobbyOptions(player, args);
+			SetLobby.setLobbyOptions(player, args);
 			return;
 		}
 		player.sendMessage(ChatColor.RED + "Usage: /hotpotato lobby set");
 	}
 	
 	public static void teleportToLobby(Player player) {
-		//TODO check if lobby exists before teleporting player
 		LocationManager lobby = new LocationManager();
 		String locString = (String) lobby.getConfig().get("locations.lobby");
 		if (locString.isEmpty() == true) {
