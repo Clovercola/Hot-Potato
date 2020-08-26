@@ -11,7 +11,7 @@ public class DeleteCommand {
 		
 	}
 	
-	public void checkDeleteCommand(Player player, String[] args) {
+	public static void checkDeleteCommand(Player player, String[] args) {
 		if (args.length == 2) {
 			deleteArena(player, args);
 			return;
@@ -20,7 +20,7 @@ public class DeleteCommand {
 		return;
 	}
 	
-	private void deleteArena(Player player, String[] args) {
+	private static void deleteArena(Player player, String[] args) {
 		String name = args[1];
 		LocationManager delete = new LocationManager();
 		delete.getConfig().set("locations.arenas." + name, null);

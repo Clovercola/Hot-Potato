@@ -13,7 +13,7 @@ public class SpawnCommand {
 		
 	}
 	
-	public void checkSpawnCommand(Player player, String[] args) {
+	public static void checkSpawnCommand(Player player, String[] args) {
 		//hotpotato spawn <arena name>
 		if (args.length == 2) {
 			String name = args[1];
@@ -24,7 +24,7 @@ public class SpawnCommand {
 		return;
 	}
 	
-	private void setSpawn(Player player, String name) {
+	private static void setSpawn(Player player, String name) {
 		LocationManager spawnSetter = new LocationManager();
 		if (ArenaExistance.doesArenaExist(spawnSetter, name) == false) {
 			ArenaExistance.warnMissingArena(player, name);

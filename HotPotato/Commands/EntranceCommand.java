@@ -13,7 +13,7 @@ public class EntranceCommand {
 		
 	}
 	
-	public void checkEntranceCommand(Player player, String[] args) {
+	public static void checkEntranceCommand(Player player, String[] args) {
 		//hotpotato entrance <name>
 		if (args.length == 2) {
 			String name = args[1];
@@ -24,7 +24,7 @@ public class EntranceCommand {
 		return;
 	}
 	
-	private void createEntrance(Player player, String name) {
+	private static void createEntrance(Player player, String name) {
 		LocationManager entranceSetter = new LocationManager();
 		if (ArenaExistance.doesArenaExist(entranceSetter, name) == false) {
 			ArenaExistance.warnMissingArena(player, name);

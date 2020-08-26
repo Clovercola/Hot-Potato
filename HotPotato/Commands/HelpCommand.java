@@ -9,7 +9,7 @@ public class HelpCommand {
 		
 	}
 	
-	public void hotPotatoHelp(Player player) {
+	public static void hotPotatoHelp(Player player) {
 		player.sendMessage(ChatColor.GOLD + "-----------------------------------------------");
 		player.sendMessage(ChatColor.GREEN + "/hotpotato help: displays this message");
 		player.sendMessage(ChatColor.GOLD + "-----------------------------------------------");

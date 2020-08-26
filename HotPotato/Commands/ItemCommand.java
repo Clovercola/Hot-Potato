@@ -12,7 +12,7 @@ public class ItemCommand {
 
 	}
 
-	public void checkItemCommand(Player player, String[] args) {
+	public static void checkItemCommand(Player player, String[] args) {
 		// hotpotato item create/delete <ItemSpawnName> <Arena>
 		if (args.length == 4) {
 			String check = args[1];
@@ -36,13 +36,13 @@ public class ItemCommand {
 		return;
 	}
 
-	private void createItemSpawn(LocationManager manager, Player player, String name) {
+	private static void createItemSpawn(LocationManager manager, Player player, String name) {
 		// TODO
 		player.sendMessage("Items aren't implemented yet, and may not even be implemented AT ALL, so I'll fill this in"
 				+ "if and when I decide we're gonna have items.");
 	}
 
-	private void deleteItemSpawn(LocationManager manager, Player player, String name) {
+	private static void deleteItemSpawn(LocationManager manager, Player player, String name) {
 		// TODO
 		player.sendMessage("Items aren't implemented yet, and may not even be implemented AT ALL, so I'll fill this in"
 				+ "if and when I decide we're gonna have items.");

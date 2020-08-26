@@ -12,7 +12,7 @@ public class DisableCommand {
 		
 	}
 	
-	public void disableCommandChecker(Player player, String[] args) {
+	public static void disableCommandChecker(Player player, String[] args) {
 		if (args.length == 2) {
 			disableArena(player, args);
 			return;
@@ -21,7 +21,7 @@ public class DisableCommand {
 		return;
 	}
 	
-	public void disableArena(Player player, String[] args) {
+	public static void disableArena(Player player, String[] args) {
 		LocationManager disable = new LocationManager();
 		String name = args[1];
 		if (ArenaExistance.doesArenaExist(disable, name) == false) {

@@ -11,7 +11,7 @@ public class LeaveCommand {
 		
 	}
 	
-	public void leaveArena(Player player) {
+	public static void leaveArena(Player player) {
 		StatusCheck check = new StatusCheck(); 
 		if (check.isInArena(player) == false) {
 			player.sendMessage(ChatColor.RED + "You aren't in an arena!");
