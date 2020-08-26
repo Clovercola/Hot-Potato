@@ -24,7 +24,8 @@ public class DisableCommand {
 	public void disableArena(Player player, String[] args) {
 		LocationManager disable = new LocationManager();
 		String name = args[1];
-		if (ArenaExistance.doesArenaExist(disable, player, name) == false) {
+		if (ArenaExistance.doesArenaExist(disable, name) == false) {
+			ArenaExistance.warnMissingArena(player, name);
 			return;
 		}
 		if (disable.getConfig().getBoolean("locations.arenas." + name + ".enabled") == false) {

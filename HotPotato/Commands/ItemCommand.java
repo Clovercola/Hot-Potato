@@ -18,7 +18,8 @@ public class ItemCommand {
 			String check = args[1];
 			LocationManager manager = new LocationManager();
 			String name = args[3];
-			if (ArenaExistance.doesArenaExist(manager, player, args[3]) == false) {
+			if (ArenaExistance.doesArenaExist(manager, args[3]) == false) {
+				ArenaExistance.warnMissingArena(player, name);
 				return;
 			}
 			if (check.equalsIgnoreCase("CREATE")) {

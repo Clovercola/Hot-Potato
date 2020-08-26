@@ -26,7 +26,8 @@ public class EntranceCommand {
 	
 	private void createEntrance(Player player, String name) {
 		LocationManager entranceSetter = new LocationManager();
-		if (ArenaExistance.doesArenaExist(entranceSetter, player, name) == false) {
+		if (ArenaExistance.doesArenaExist(entranceSetter, name) == false) {
+			ArenaExistance.warnMissingArena(player, name);
 			return;
 		}
 		LocationSerializationUtility util = new LocationSerializationUtility();

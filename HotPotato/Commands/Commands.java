@@ -33,8 +33,7 @@ public class Commands implements CommandExecutor {
 		String argument = args[0].toUpperCase();
 		switch (argument) {
 		case "CREATE":
-			CreateCommand create = new CreateCommand();
-			create.checkCreateCommand(player, args);
+			CreateCommand.checkCreateCommand(player, args);
 			return;
 		case "DELETE":
 			DeleteCommand delete = new DeleteCommand();

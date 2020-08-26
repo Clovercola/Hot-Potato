@@ -26,7 +26,8 @@ public class SpawnCommand {
 	
 	private void setSpawn(Player player, String name) {
 		LocationManager spawnSetter = new LocationManager();
-		if (ArenaExistance.doesArenaExist(spawnSetter, player, name) == false) {
+		if (ArenaExistance.doesArenaExist(spawnSetter, name) == false) {
+			ArenaExistance.warnMissingArena(player, name);
 			return;
 		}
 		LocationSerializationUtility util = new LocationSerializationUtility();

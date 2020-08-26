@@ -25,7 +25,8 @@ public class EnableCommand {
 	public void enableArena(Player player, String[] args) {
 		LocationManager enable = new LocationManager();
 		String name = args[1];
-		if (ArenaExistance.doesArenaExist(enable, player, name) == false) {
+		if (ArenaExistance.doesArenaExist(enable, name) == false) {
+			ArenaExistance.warnMissingArena(player, name);
 			return;
 		}
 		if (enable.getConfig().getBoolean("locations.arenas." + name + ".enabled") == true) {
