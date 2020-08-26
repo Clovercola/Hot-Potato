@@ -12,8 +12,7 @@ public class EnableCommand {
 
 	}
 
-	public void enableCommandChecker(Player player, String[] args) {
-		//hotpotato enable <Arena>
+	public static void enableCommandChecker(Player player, String[] args) {
 		if (args.length == 2) {
 			enableArena(player, args);
 			return;
@@ -22,7 +21,7 @@ public class EnableCommand {
 		return;
 	}
 	
-	public void enableArena(Player player, String[] args) {
+	public static void enableArena(Player player, String[] args) {
 		LocationManager enable = new LocationManager();
 		String name = args[1];
 		if (ArenaExistance.doesArenaExist(enable, name) == false) {

@@ -13,7 +13,7 @@ public class LobbyCommand {
 		
 	}
 	
-	public void checkLobbyCommand(Player player, String[] args) {
+	public static void checkLobbyCommand(Player player, String[] args) {
 		int size = args.length;
 		if (size == 1) {
 			teleportToLobby(player);
@@ -27,7 +27,7 @@ public class LobbyCommand {
 		player.sendMessage(ChatColor.RED + "Usage: /hotpotato lobby set");
 	}
 	
-	public void teleportToLobby(Player player) {
+	public static void teleportToLobby(Player player) {
 		//TODO check if lobby exists before teleporting player
 		LocationManager lobby = new LocationManager();
 		String locString = (String) lobby.getConfig().get("locations.lobby");

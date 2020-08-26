@@ -13,7 +13,7 @@ public class JoinCommand {
 
 	}
 
-	public void joinArena(Player player, String[] args) {
+	public static void joinArena(Player player, String[] args) {
 		if (args.length != 2) {
 			joinUsage(player);
 			return;
@@ -39,7 +39,7 @@ public class JoinCommand {
 		player.sendMessage(ChatColor.GOLD + "You have joined arena " + arena + "!");
 	}
 
-	private void joinUsage(Player player) {
+	private static void joinUsage(Player player) {
 		player.sendMessage(ChatColor.RED + "Usage: /hotpotato join <arena>");
 	}
 

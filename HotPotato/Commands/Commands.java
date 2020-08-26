@@ -26,8 +26,7 @@ public class Commands implements CommandExecutor {
 
 	private void checkHotPotatoArguments(Player player, String[] args) {
 		if (args.length == 0) {
-			HelpCommand help = new HelpCommand();
-			help.hotPotatoHelp(player);
+			HelpCommand.hotPotatoHelp(player);
 			return;
 		}
 		String argument = args[0].toUpperCase();
@@ -36,41 +35,31 @@ public class Commands implements CommandExecutor {
 			CreateCommand.checkCreateCommand(player, args);
 			return;
 		case "DELETE":
-			DeleteCommand delete = new DeleteCommand();
-			delete.checkDeleteCommand(player, args);
+			DeleteCommand.checkDeleteCommand(player, args);
 			return;
 		case "DISABLE":
-			DisableCommand disable = new DisableCommand();
-			disable.disableCommandChecker(player, args);
+			DisableCommand.disableCommandChecker(player, args);
 			return;
 		case "ENABLE":
-			EnableCommand enable = new EnableCommand();
-			enable.enableCommandChecker(player, args);
+			EnableCommand.enableCommandChecker(player, args);
 			return;
 		case "ENTRANCE":
-			EntranceCommand entrance = new EntranceCommand();
-			entrance.checkEntranceCommand(player, args);
+			EntranceCommand.checkEntranceCommand(player, args);
 			return;
 		case "ITEM":
-			// TODO If items are implemented, finish and implement this class.
-			ItemCommand item = new ItemCommand();
-			item.checkItemCommand(player, args);
+			ItemCommand.checkItemCommand(player, args);
 			return;
 		case "JOIN":
-			JoinCommand join = new JoinCommand();
-			join.joinArena(player, args);
+			JoinCommand.joinArena(player, args);
 			return;
 		case "LEAVE":
-			LeaveCommand leave = new LeaveCommand();
-			leave.leaveArena(player);
+			LeaveCommand.leaveArena(player);
 			return;
 		case "LOBBY":
-			LobbyCommand lobby = new LobbyCommand();
-			lobby.checkLobbyCommand(player, args);
+			LobbyCommand.checkLobbyCommand(player, args);
 			return;
 		case "SPAWN":
-			SpawnCommand spawn = new SpawnCommand();
-			spawn.checkSpawnCommand(player, args);
+			SpawnCommand.checkSpawnCommand(player, args);
 			return;
 		case "TEST":
 			StatusCheck check = new StatusCheck();
@@ -80,8 +69,7 @@ public class Commands implements CommandExecutor {
 			check.setTaggedPlayer(player);
 			return;
 		default:
-			HelpCommand help = new HelpCommand();
-			help.hotPotatoHelp(player);
+			HelpCommand.hotPotatoHelp(player);
 			return;
 		}
 	}
