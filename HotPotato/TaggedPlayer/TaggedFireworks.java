@@ -37,14 +37,13 @@ public class TaggedFireworks implements Listener {
 	}
 	
 	public void fireworksTimer(Player player) {
-		StatusCheck check = new StatusCheck();
-		if (check.checkIfTagged(player) == false) {
+		if (StatusCheck.isPlayerTagged(player) == false) {
 			return;
 		}
 		new BukkitRunnable(){
 			@Override
 			public void run() {
-				if (check.checkIfTagged(player) == false) {
+				if (StatusCheck.isPlayerTagged(player) == false) {
 					cancel();
 				}
 				Firework firework = spawnFireworks(player);
