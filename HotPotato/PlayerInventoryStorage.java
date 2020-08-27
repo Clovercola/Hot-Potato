@@ -10,7 +10,6 @@ import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
 
 public class PlayerInventoryStorage {
 	
-	//private static HashMap<Player, InventoryStatusObject> storage = new HashMap<Player, InventoryStatusObject>();
 	private static HotPotatoMain plugin;
 	
 	public PlayerInventoryStorage() {
@@ -21,14 +20,14 @@ public class PlayerInventoryStorage {
 		plugin = instance;
 	}
 	
-	public void storeInventory(Player player, InventoryStatusObject inv) {
+	public static void storeInventory(Player player, InventoryStatusObject inv) {
 		FixedMetadataValue meta = new FixedMetadataValue(plugin, inv);
 		player.setMetadata("HotPotatoStoredInventory", meta);
 		clearPlayer(player);
 		return;
 	}
 	
-	private void clearPlayer(Player player) {
+	private static void clearPlayer(Player player) {
 		player.getInventory().clear();
 		player.setLevel(0);
 		player.setExp(0.0f);
@@ -42,7 +41,7 @@ public class PlayerInventoryStorage {
 		return;
 	}
 	
-	public void retrieveInventory(Player player) {
+	public static void retrieveInventory(Player player) {
 		clearPlayer(player);
 		MetadataValue meta = player.getMetadata("HotPotatoStoredInventory").get(0);
 		//Safety check
