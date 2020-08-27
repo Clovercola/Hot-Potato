@@ -62,11 +62,11 @@ public class Commands implements CommandExecutor {
 			SpawnCommand.checkSpawnCommand(player, args);
 			return;
 		case "TEST":
-			StatusCheck check = new StatusCheck();
-			if (check.isInArena(player) == false) {
+			if (StatusCheck.isInArena(player) == false) {
 				player.sendMessage(ChatColor.RED + "You must be in an arena to use this command!");
 			}
-			check.setTaggedPlayer(player);
+			//TODO
+			player.sendMessage("This command is currently disabled.");
 			return;
 		default:
 			HelpCommand.hotPotatoHelp(player);
