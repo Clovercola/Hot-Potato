@@ -19,8 +19,7 @@ public class PreventFireworkDamage implements Listener {
 			return;
 		}
 		Player player = (Player) event.getEntity();
-		StatusCheck check = new StatusCheck();
-		if (check.isInArena(player) == false) {
+		if (StatusCheck.isInArena(player) == false) {
 			return;
 		}
 		event.setCancelled(true);

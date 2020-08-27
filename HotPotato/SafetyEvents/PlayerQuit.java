@@ -16,8 +16,7 @@ public class PlayerQuit implements Listener{
 	@EventHandler
 	public void playerQuitServer(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		StatusCheck check = new StatusCheck();
-		check.leaveArenaStatus(player);	
+		StatusCheck.leaveArena(player);
 	}
 	
 }

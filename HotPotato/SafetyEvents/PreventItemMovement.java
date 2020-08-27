@@ -13,7 +13,7 @@ public class PreventItemMovement implements Listener {
 	@EventHandler
 	public void clickingInventoryItem(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		if (checkIfInArena(player) == false) {
+		if (StatusCheck.isInArena(player) == false) {
 			return;
 		}
 		event.setCancelled(true);
@@ -22,18 +22,10 @@ public class PreventItemMovement implements Listener {
 	@EventHandler
 	public void swapHandsEvent(PlayerSwapHandItemsEvent event) {
 		Player player = (Player) event.getPlayer();
-		if (checkIfInArena(player) == false) {
+		if (StatusCheck.isInArena(player) == false) {
 			return;
 		}
 		event.setCancelled(true);
-	}
-	
-	private boolean checkIfInArena(Player player) {
-		StatusCheck check = new StatusCheck();
-		if (check.isInArena(player) == false) {
-			return false;
-		}
-		return true;
 	}
 
 }
