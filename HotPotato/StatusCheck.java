@@ -9,13 +9,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
+import me.CloverCola.HotPotato.DataClasses.ArenaPlayers;
 import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
 import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class StatusCheck {
 
 	private static HotPotatoMain plugin;
-	private static HashMap<String, Integer> arenaPlayerCount = new HashMap<String, Integer>();
+	private static HashMap<String, ArenaPlayers> arenaStatus = new HashMap<String, ArenaPlayers>();
 
 	public StatusCheck() {
 
@@ -26,43 +27,43 @@ public class StatusCheck {
 	}
 
 	public static void joinArenaStatus(Player player, String arena) {
-		// TAKE CARE OF THE FOLLOWING:
-		// isTagged
-		int count = 1;
-		if (arenaPlayerCount.containsKey(arena) == true) {
-			count = arenaPlayerCount.get(arena) + 1;
-			arenaPlayerCount.put(arena, count);
+		int total = 1;
+		// TODO make sure that the amount of players is equal to the number of stored
+		// players.
+		if (arenaStatus.containsKey(arena) == false || arenaStatus.get(arena).getCount() + 1 < 1) {
+			ArenaPlayers initArena = new ArenaPlayers(1, player);
+			arenaStatus.put(arena, initArena);
 		} else {
-			arenaPlayerCount.put(arena, 1);
-		}
-		if (arenaPlayerCount.get(arena) < 1) {
-			arenaPlayerCount.put(arena, 1);
+			total = arenaStatus.get(arena).getCount() + 1;
+			arenaStatus.get(arena).setCount(total);
 		}
 		storePlayerInventory(player);
 		setJoinedArenaMeta(player, arena);
-		player.sendMessage(ChatColor.GREEN + "You have joined the game!");
-		player.sendMessage(ChatColor.GREEN + "There are now " + count + " players waiting!");
+		if (total == 1) {
+			player.sendMessage(ChatColor.GREEN + "There is now 1 player waiting!");
+			return;
+		}
+		player.sendMessage(ChatColor.GREEN + "There are now " + total + " players waiting!");
 	}
 
 	public static void leaveArena(Player player) {
-		if (player.hasMetadata("HotPotatoStatus") == false){
+		if (player.hasMetadata("HotPotatoStatus") == false) {
 			player.sendMessage(ChatColor.RED + "You aren't in a game!");
 			return;
 		}
 		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
 		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
 		String arena = status.getArena();
-		//Error catching
-		if (arenaPlayerCount.containsKey(arena) == false) {
-			Bukkit.getLogger().log(Level.SEVERE, "Internal error with removing a player from a Hot Potato arena! Error code: 187");
-		}
-		else {
-			int count = arenaPlayerCount.get(arena) - 1;
-			arenaPlayerCount.put(arena, count);
+		// Error catching
+		if (arenaStatus.containsKey(arena) == false) {
+			Bukkit.getLogger().log(Level.SEVERE,
+					"Internal error with removing a player from a Hot Potato arena! Error code: 187");
+		} else {
+			int total = arenaStatus.get(arena).getCount() - 1;
+			arenaStatus.get(arena).setCount(total);
 		}
 		player.removeMetadata("HotPotatoStatus", plugin);
 		PlayerInventoryStorage.retrieveInventory(player);
-		player.sendMessage(ChatColor.GOLD + "You have left the Hot Potato arena!");
 	}
 
 	public static boolean isInArena(Player player) {
@@ -90,7 +91,7 @@ public class StatusCheck {
 		}
 		return false;
 	}
-	
+
 	public static boolean isPlayerTagged(Player player) {
 		if (isAlive(player) == false) {
 			return false;
