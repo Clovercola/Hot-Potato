@@ -1,5 +1,6 @@
 package me.CloverCola.HotPotato;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -9,14 +10,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
-import me.CloverCola.HotPotato.DataClasses.ArenaPlayers;
 import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
 import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class StatusCheck {
 
 	private static HotPotatoMain plugin;
-	private static HashMap<String, ArenaPlayers> arenaStatus = new HashMap<String, ArenaPlayers>();
+	private static HashMap<String, ArrayList<Player>> arenaStatus = new HashMap<String, ArrayList<Player>>();
 
 	public StatusCheck() {
 
@@ -28,14 +28,13 @@ public class StatusCheck {
 
 	public static void joinArenaStatus(Player player, String arena) {
 		int total = 1;
-		// TODO make sure that the amount of players is equal to the number of stored
-		// players.
-		if (arenaStatus.containsKey(arena) == false || arenaStatus.get(arena).getCount() + 1 < 1) {
-			ArenaPlayers initArena = new ArenaPlayers(1, player);
-			arenaStatus.put(arena, initArena);
+		if (arenaStatus.containsKey(arena) == false) {
+			ArrayList<Player> waitingPlayer = new ArrayList<Player>();
+			waitingPlayer.add(player);
+			arenaStatus.put(arena, waitingPlayer);
 		} else {
-			total = arenaStatus.get(arena).getCount() + 1;
-			arenaStatus.get(arena).setCount(total);
+			arenaStatus.get(arena).add(player);
+			total = arenaStatus.get(arena).size();
 		}
 		storePlayerInventory(player);
 		setJoinedArenaMeta(player, arena);
@@ -59,8 +58,7 @@ public class StatusCheck {
 			Bukkit.getLogger().log(Level.SEVERE,
 					"Internal error with removing a player from a Hot Potato arena! Error code: 187");
 		} else {
-			int total = arenaStatus.get(arena).getCount() - 1;
-			arenaStatus.get(arena).setCount(total);
+			arenaStatus.get(arena).remove(player);
 		}
 		player.removeMetadata("HotPotatoStatus", plugin);
 		PlayerInventoryStorage.retrieveInventory(player);
