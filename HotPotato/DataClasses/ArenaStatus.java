@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class ArenaStatus {
 	
-	private ArrayList<Player> waitingPlayers;
+	private ArrayList<Player> waitingPlayers = new ArrayList<Player>();
 	private boolean started;
 	
 	public ArenaStatus() {
