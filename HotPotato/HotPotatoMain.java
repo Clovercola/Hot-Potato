@@ -2,7 +2,9 @@ package me.CloverCola.HotPotato;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.CloverCola.HotPotato.Commands.Commands;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
 import me.CloverCola.HotPotato.SafetyEvents.PlayerQuit;
+import me.CloverCola.HotPotato.SafetyEvents.PreventFireworkDamage;
 import me.CloverCola.HotPotato.SafetyEvents.PreventItemMovement;
 import me.CloverCola.HotPotato.TaggedPlayer.TaggedFireworks;
 
@@ -17,11 +19,15 @@ public class HotPotatoMain extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new PotatoTimer(instance), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
 		this.getServer().getPluginManager().registerEvents(new TaggedFireworks(instance), this);
+		this.getServer().getPluginManager().registerEvents(new PreventFireworkDamage(), this);
 		this.saveConfig();
 		LocationManager initialize = new LocationManager(instance);
 		initialize.saveConfig();
-		
-	}
+		PlayerInventoryStorage psInit = new PlayerInventoryStorage();
+		psInit.setPluginInstance(instance);
+		StatusCheck.getPluginInstance(instance);
+		StartArena.setPluginInstance(instance);
+		}
 	
 	@Override
 	public void onDisable() {
