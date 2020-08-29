@@ -16,7 +16,7 @@ public class LeaveCommand {
 			player.sendMessage(ChatColor.RED + "You aren't in an arena!");
 			return;
 		}
-		StatusCheck.leaveArena(player);
+		StatusCheck.leave(player);
 		player.sendMessage(ChatColor.GOLD + "You have left the arena!");
 	}
 	

@@ -32,7 +32,7 @@ public class JoinCommand {
 			player.sendMessage(ChatColor.RED + "That arena is currently disabled and cannot be joined right now!");
 			return;
 		}
-		StatusCheck.joinArenaStatus(player, arena);
+		StatusCheck.join(player, arena);
 		player.sendMessage(ChatColor.GOLD + "You have joined arena " + arena + "!");
 	}
 
