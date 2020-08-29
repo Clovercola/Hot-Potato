@@ -1,6 +1,5 @@
 package me.CloverCola.HotPotato;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -10,13 +9,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
+import me.CloverCola.HotPotato.DataClasses.ArenaStatus;
 import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
 import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class StatusCheck {
 
 	private static HotPotatoMain plugin;
-	private static HashMap<String, ArrayList<Player>> arenaStatus = new HashMap<String, ArrayList<Player>>();
+	private static HashMap<String, ArenaStatus> arenaList = new HashMap<String, ArenaStatus>();
 
 	public StatusCheck() {
 
@@ -26,41 +26,57 @@ public class StatusCheck {
 		plugin = instance;
 	}
 
-	public static void joinArenaStatus(Player player, String arena) {
-		int total = 1;
-		if (arenaStatus.containsKey(arena) == false) {
-			ArrayList<Player> waitingPlayer = new ArrayList<Player>();
-			waitingPlayer.add(player);
-			arenaStatus.put(arena, waitingPlayer);
-		} else {
-			arenaStatus.get(arena).add(player);
-			total = arenaStatus.get(arena).size();
-		}
-		storePlayerInventory(player);
-		setJoinedArenaMeta(player, arena);
-		if (total == 1) {
-			player.sendMessage(ChatColor.GREEN + "There is now 1 player waiting!");
-			return;
-		}
-		player.sendMessage(ChatColor.GREEN + "There are now " + total + " players waiting!");
+	public static int getPlayerCount(String arenaName) {
+		return arenaList.get(arenaName).getWaitingPlayers().size();
 	}
 
-	public static void leaveArena(Player player) {
-		if (player.hasMetadata("HotPotatoStatus") == false) {
-			player.sendMessage(ChatColor.RED + "You aren't in a game!");
+	public static Player getPlayerFromArena(String arenaName, int slot) {
+		return arenaList.get(arenaName).getWaitingPlayers().get(slot);
+	}
+
+	public static void join(Player player, String arenaName) {
+		if (arenaList.containsKey(arenaName) == false) {
+			ArenaStatus status = new ArenaStatus(player);
+			arenaList.put(arenaName, status);
+		} else {
+			arenaList.get(arenaName).getWaitingPlayers().add(player);
+		}
+		storeInventory(player);
+		setJoinedMeta(player, arenaName);
+		int count = getPlayerCount(arenaName);
+		if (count == 1) {
+			player.sendMessage(ChatColor.GREEN + "There is now 1 player waiting!");
+		} else {
+			player.sendMessage(ChatColor.GREEN + "There is now " + count + " players waiting!");
+		}
+		return;
+	}
+
+	private static void storeInventory(Player player) {
+		InventoryStatusObject inv = new InventoryStatusObject(player);
+		PlayerInventoryStorage.storeInventory(player, inv);
+		return;
+	}
+
+	private static void setJoinedMeta(Player player, String arenaName) {
+		PlayerArenaStatus status = new PlayerArenaStatus(player, arenaName);
+		FixedMetadataValue data = new FixedMetadataValue(plugin, status);
+		player.setMetadata("HotPotatoStatus", data);
+		return;
+	}
+
+	public static void leave(Player player) {
+		if (isInArena(player) == false) {
+			player.sendMessage(ChatColor.GREEN + "You're not in a game!");
 			return;
 		}
-		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
-		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
-		String arena = status.getArena();
-		// Error catching
-		if (arenaStatus.containsKey(arena) == false) {
-			Bukkit.getLogger().log(Level.SEVERE,
-					"Internal error with removing a player from a Hot Potato arena! Error code: 187");
-		} else {
-			arenaStatus.get(arena).remove(player);
-		}
+		retrieveInventory(player);
 		player.removeMetadata("HotPotatoStatus", plugin);
+		player.sendMessage(ChatColor.GREEN + "You have left the game!");
+	}
+
+	// This method exists as a compliment to the earlier "storeInventory" method.
+	private static void retrieveInventory(Player player) {
 		PlayerInventoryStorage.retrieveInventory(player);
 	}
 
@@ -72,49 +88,42 @@ public class StatusCheck {
 	}
 
 	public static boolean isAlive(Player player) {
-		if (player.hasMetadata("HotPotatoStatus") == false) {
+		if (isInArena(player) == false) {
 			return false;
 		}
-		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
-		// Safety check w/ Error code 317
-		// Error codes will be put throughout eventually to mark errors to make
-		// debugging easier.
-		if (!(data.value() instanceof PlayerArenaStatus)) {
-			Bukkit.getLogger().log(Level.WARNING, "Hot Potato threw an internal error! Error code: 317");
-			return false;
-		}
-		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
-		if (status.isPlayerAlive() == true) {
-			return true;
-		}
-		return false;
+		PlayerArenaStatus status = getStatusMetadata(player);
+		return status.isPlayerAlive();
 	}
 
-	public static boolean isPlayerTagged(Player player) {
+	public static boolean isTagged(Player player) {
 		if (isAlive(player) == false) {
 			return false;
 		}
-		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
-		if (!(data.value() instanceof PlayerArenaStatus)) {
-			Bukkit.getLogger().log(Level.WARNING, "Hot Potato threw an internal error! Error code: 329");
+		PlayerArenaStatus status = getStatusMetadata(player);
+		if (status.isTagged() == false) {
 			return false;
 		}
-		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
-		if (status.isTagged() == true) {
-			return true;
+		return true;
+	}
+
+	private static PlayerArenaStatus getStatusMetadata(Player player) {
+		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
+		if (checkForMetaError(data) == false) {
+			Bukkit.getLogger().log(Level.SEVERE, "Error grabbing Metadata for player " + player.getDisplayName() + "!");
+			Bukkit.getLogger().log(Level.INFO,
+					"Please send a copy of the log going back to when the Hot Potato game started to"
+							+ "Xfur on Spigot so that he can fix this problem! I'm sorry for the inconvienence!");
+			// TODO Remove player from the game when they throw a metaData error.
 		}
-		return false;
+		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
+		return status;
 	}
 
-	private static void storePlayerInventory(Player player) {
-		InventoryStatusObject inv = new InventoryStatusObject(player);
-		PlayerInventoryStorage.storeInventory(player, inv);
-	}
-
-	private static void setJoinedArenaMeta(Player player, String arena) {
-		PlayerArenaStatus status = new PlayerArenaStatus(player, arena);
-		FixedMetadataValue meta = new FixedMetadataValue(plugin, status);
-		player.setMetadata("HotPotatoStatus", meta);
+	private static boolean checkForMetaError(MetadataValue data) {
+		if (!(data.value() instanceof PlayerArenaStatus)) {
+			return false;
+		}
+		return true;
 	}
 
 }
