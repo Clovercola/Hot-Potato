@@ -18,18 +18,18 @@ public class StartArena {
 		plugin = instance;
 	}
 
-	public static boolean checkIfCanStart(String arenaName) {
+	public static void checkIfCanStart(String arenaName) {
 		int count = StatusCheck.getPlayerCount(arenaName);
 		if (count < 2) {
-			return false;
+			return;
 		}
-		return true;
+		countdown(arenaName);
+		return;
 	}
 
 	public static void countdown(String arenaName) {
 		new BukkitRunnable() {
 			int time = 30;
-
 			@Override
 			public void run() {
 				if (time <= 0) {
@@ -42,6 +42,7 @@ public class StartArena {
 				time--;
 			}
 		}.runTaskTimer(plugin, 20, 20);
+		return;
 	}
 
 	private static boolean checkIfShouldNotify(int time) {
