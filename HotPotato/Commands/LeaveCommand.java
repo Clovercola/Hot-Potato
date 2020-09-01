@@ -12,12 +12,11 @@ public class LeaveCommand {
 	}
 	
 	public static void leaveArena(Player player) {
-		StatusCheck check = new StatusCheck(); 
-		if (check.isInArena(player) == false) {
+		if (StatusCheck.isInArena(player) == false) {
 			player.sendMessage(ChatColor.RED + "You aren't in an arena!");
 			return;
 		}
-		check.leaveArenaStatus(player);
+		StatusCheck.leave(player);
 		player.sendMessage(ChatColor.GOLD + "You have left the arena!");
 	}
 	

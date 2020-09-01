@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.StatusCheck;
 import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
-import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class JoinCommand {
 
@@ -19,9 +18,8 @@ public class JoinCommand {
 			return;
 		}
 		String arena = args[1];
-		StatusCheck manage = new StatusCheck();
-		if (manage.isInArena(player) == true) {
-			player.sendMessage(ChatColor.RED + "You're already in an arena!");
+		if (StatusCheck.isInArena(player) == true) {
+			player.sendMessage(ChatColor.RED + "You're already in a game!");
 			return;
 		}
 		
@@ -34,8 +32,7 @@ public class JoinCommand {
 			player.sendMessage(ChatColor.RED + "That arena is currently disabled and cannot be joined right now!");
 			return;
 		}
-		PlayerArenaStatus join = new PlayerArenaStatus(player, arena);
-		manage.joinArenaStatus(player, join);
+		StatusCheck.join(player, arena);
 		player.sendMessage(ChatColor.GOLD + "You have joined arena " + arena + "!");
 	}
 
