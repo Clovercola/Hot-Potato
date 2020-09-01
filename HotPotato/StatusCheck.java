@@ -1,5 +1,6 @@
 package me.CloverCola.HotPotato;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -33,6 +34,30 @@ public class StatusCheck {
 	public static Player getPlayerFromArena(String arenaName, int slot) {
 		return arenaList.get(arenaName).getWaitingPlayers().get(slot);
 	}
+	
+	public static ArrayList<Player> getAllPlayersFromArena(String arenaName) {
+		return arenaList.get(arenaName).getWaitingPlayers();
+	}
+	
+	public static void emptyAllArenas() {
+		for (String arenaName : arenaList.keySet()) {
+			removeAllPlayersFromArena(arenaName);
+		}
+	}
+	
+	public static void removeAllPlayersFromArena(String arenaName) {
+		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		for (int i = 0; i < playerList.size(); i++) {
+			Bukkit.getLogger().log(Level.INFO, playerList.get(i).getDisplayName());
+			Bukkit.getLogger().log(Level.INFO, "PlayerList size: " + playerList.size());
+			Bukkit.getLogger().log(Level.INFO, "Index: " + i);
+			leave(playerList.get(i));
+		}
+		while (playerList.isEmpty() == false) {
+			leave(playerList.get(0));
+		}
+		
+	}
 
 	public static void join(Player player, String arenaName) {
 		if (arenaList.containsKey(arenaName) == false) {
@@ -49,6 +74,7 @@ public class StatusCheck {
 		} else {
 			player.sendMessage(ChatColor.GREEN + "There is now " + count + " players waiting!");
 		}
+		StartArena.checkIfCanStart(arenaName);
 		return;
 	}
 
@@ -71,6 +97,9 @@ public class StatusCheck {
 			return;
 		}
 		retrieveInventory(player);
+		PlayerArenaStatus status = (PlayerArenaStatus) player.getMetadata("HotPotatoStatus").get(0).value();
+		String arenaName = status.getArena();
+		arenaList.get(arenaName).getWaitingPlayers().remove(player);
 		player.removeMetadata("HotPotatoStatus", plugin);
 		player.sendMessage(ChatColor.GREEN + "You have left the game!");
 	}
@@ -114,6 +143,7 @@ public class StatusCheck {
 					"Please send a copy of the log going back to when the Hot Potato game started to"
 							+ "Xfur on Spigot so that he can fix this problem! I'm sorry for the inconvienence!");
 			// TODO Remove player from the game when they throw a metaData error.
+			// TODO Actually do something if this method returns false
 		}
 		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
 		return status;
