@@ -31,9 +31,7 @@ public class HotPotatoMain extends JavaPlugin{
 	
 	@Override
 	public void onDisable() {
-		//TODO Fix the iterator so I can uncomment this.
-		//StatusCheck remove = new StatusCheck();
-		//remove.clearArena();
+		StatusCheck.emptyAllArenas();
 	}
 	
 }
