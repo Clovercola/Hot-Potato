@@ -54,7 +54,7 @@ public class StartArena {
 		case 10:
 			return true;
 		default:
-			if (time <= 5) {
+			if (time <= 5 && time > 0) {
 				return true;
 			} else {
 				return false;
