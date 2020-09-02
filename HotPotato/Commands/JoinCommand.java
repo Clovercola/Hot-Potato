@@ -22,7 +22,6 @@ public class JoinCommand {
 			player.sendMessage(ChatColor.RED + "You're already in a game!");
 			return;
 		}
-		
 		LocationManager check = new LocationManager();
 		if (check.getConfig().contains("locations.arenas." + arena) == false) {
 			player.sendMessage(ChatColor.RED + "That arena does not exist!");
@@ -30,6 +29,10 @@ public class JoinCommand {
 		}
 		if (check.getConfig().getBoolean("locations.arenas." + arena + ".enabled") == false) {
 			player.sendMessage(ChatColor.RED + "That arena is currently disabled and cannot be joined right now!");
+			return;
+		}
+		if (StatusCheck.hasStarted(arena) == true) {
+			player.sendMessage(ChatColor.RED + "That arena has already started!");
 			return;
 		}
 		StatusCheck.join(player, arena);
