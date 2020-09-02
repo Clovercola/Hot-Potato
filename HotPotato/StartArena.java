@@ -71,6 +71,7 @@ public class StartArena {
 	}
 
 	public static void start(String arenaName) {
+		StatusCheck.setStarted(arenaName, true);
 		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
 		for (int i = 0; i < playerList.size(); i++) {
 			//TODO

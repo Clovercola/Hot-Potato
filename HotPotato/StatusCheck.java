@@ -56,7 +56,16 @@ public class StatusCheck {
 		while (playerList.isEmpty() == false) {
 			leave(playerList.get(0));
 		}
-		
+		return;
+	}
+	
+	public static boolean hasStarted(String arenaName) {
+		return arenaList.get(arenaName).hasStarted();
+	}
+	
+	public static void setStarted(String arenaName, boolean status) {
+		arenaList.get(arenaName).setStarted(status);
+		return;
 	}
 
 	public static void join(Player player, String arenaName) {
