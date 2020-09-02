@@ -6,8 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.CloverCola.HotPotato.StatusCheck;
-
 public class Commands implements CommandExecutor {
 
 	@Override
@@ -58,15 +56,14 @@ public class Commands implements CommandExecutor {
 		case "LOBBY":
 			LobbyCommand.checkLobbyCommand(player, args);
 			return;
+		case "SET":
+			SetLobby.checkSetCommand(player, args);
+			return;
 		case "SPAWN":
 			SpawnCommand.checkSpawnCommand(player, args);
 			return;
 		case "TEST":
-			if (StatusCheck.isInArena(player) == false) {
-				player.sendMessage(ChatColor.RED + "You must be in an arena to use this command!");
-			}
-			//TODO
-			player.sendMessage("This command is currently disabled.");
+			player.sendMessage(ChatColor.LIGHT_PURPLE + "Currently disabled.");
 			return;
 		default:
 			HelpCommand.hotPotatoHelp(player);

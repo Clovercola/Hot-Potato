@@ -17,8 +17,18 @@ public class SetLobby {
 	public SetLobby() {
 
 	}
+	
+	public static void checkSetCommand(Player player, String[] args) {
+		int size = args.length;
+		if (size == 2 || size == 5 || size == 7) {
+			setLobbyOptions(player, args);
+			return;
+		}
+		player.sendMessage(ChatColor.RED + "Usage: /hotpotato set [optional coordinates]");
+		return;
+	}
 
-	public static void setLobbyOptions(Player player, String[] args) {
+	private static void setLobbyOptions(Player player, String[] args) {
 		int setChoice = args.length;
 		switch (setChoice) {
 		case 2:
