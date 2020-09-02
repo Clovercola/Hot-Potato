@@ -6,3 +6,4 @@ author: CloverCola
 
 commands:
   hotpotato:
+    description: Basic command for Hot Potato. Do "/hotpotato" for help.
