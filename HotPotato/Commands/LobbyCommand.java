@@ -19,10 +19,6 @@ public class LobbyCommand {
 			teleportToLobby(player);
 			return;
 		}
-		if (args[1].equalsIgnoreCase("set")) {
-			SetLobby.setLobbyOptions(player, args);
-			return;
-		}
 		player.sendMessage(ChatColor.RED + "Usage: /hotpotato lobby set");
 	}
 	

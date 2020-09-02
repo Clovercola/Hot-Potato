@@ -17,11 +17,21 @@ public class SetLobby {
 	public SetLobby() {
 
 	}
+	
+	public static void checkSetCommand(Player player, String[] args) {
+		int size = args.length;
+		if (size == 1 || size == 4 || size == 6) {
+			setLobbyOptions(player, args);
+			return;
+		}
+		player.sendMessage(ChatColor.RED + "Usage: /hotpotato set [optional coordinates]");
+		return;
+	}
 
-	public static void setLobbyOptions(Player player, String[] args) {
+	private static void setLobbyOptions(Player player, String[] args) {
 		int setChoice = args.length;
 		switch (setChoice) {
-		case 2:
+		case 1:
 			// /HotPotato lobby set
 			// Since it's only using "set", set lobby with player location.
 			LocationSerializationUtility utilSimple = new LocationSerializationUtility();
@@ -29,7 +39,7 @@ public class SetLobby {
 			String write2 = utilSimple.convertLocationToString(loc);
 			writeLobby(write2, player);
 			return;
-		case 5:
+		case 4:
 			// /HotPotato lobby set x y z
 			LocationSerializationUtility locConvLite = new LocationSerializationUtility();
 			List<String> partsLite = new ArrayList<String>();
@@ -39,7 +49,7 @@ public class SetLobby {
 			String write5 = locConvLite.createLocationFromCordsLite(player, partsLite);
 			writeLobby(write5, player);
 			return;
-		case 7:
+		case 6:
 			// /HotPotato lobby set x y z yaw pitch
 			LocationSerializationUtility locConvFull = new LocationSerializationUtility();
 			List<String> partsFull = new ArrayList<String>();
