@@ -23,6 +23,10 @@ public class DeleteCommand {
 	private static void deleteArena(Player player, String[] args) {
 		String name = args[1];
 		LocationManager delete = new LocationManager();
+		if (delete.getConfig().contains("locations.arenas." + name) == false) {
+			player.sendMessage(ChatColor.RED + "Arena " + name + " does not exist!");
+			return;
+		}
 		delete.getConfig().set("locations.arenas." + name, null);
 		delete.saveConfig();
 		player.sendMessage(ChatColor.GREEN + "Arena " + name + " has been deleted!");
