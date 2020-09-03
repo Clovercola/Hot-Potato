@@ -10,10 +10,10 @@ import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class ChooseTaggedPlayer {
 	
-	public void randomTaggedPlayer(Player player, String arenaName) {
+	public static void randomTaggedPlayer(String arenaName) {
 		int count = StatusCheck.getPlayerCount(arenaName);
 		int tagSlot = generateRandomNumber(count);
-		StatusCheck.getPlayerFromArena(arenaName, tagSlot);
+		Player player = StatusCheck.getPlayerFromArena(arenaName, tagSlot);
 		MetadataValue meta = player.getMetadata("HotPotatoStatus").get(0);
 		//TODO safety instance check
 		PlayerArenaStatus status = (PlayerArenaStatus) meta.value();
@@ -21,7 +21,7 @@ public class ChooseTaggedPlayer {
 		return;
 	}
 	
-	private int generateRandomNumber(int count) {
+	private static int generateRandomNumber(int count) {
 		Random random = new Random();
 		return random.nextInt(count);
 	}
