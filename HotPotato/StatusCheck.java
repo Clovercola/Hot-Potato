@@ -143,6 +143,12 @@ public class StatusCheck {
 		}
 		return true;
 	}
+	
+	//This method assumes you have checked if the player is in an arena first.
+	public static void setTagged(Player player, boolean tagged) {
+		PlayerArenaStatus status = getStatusMetadata(player);
+		status.setTagged(tagged);
+	}
 
 	private static PlayerArenaStatus getStatusMetadata(Player player) {
 		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
