@@ -25,7 +25,7 @@ public class TaggedFireworks implements Listener {
 		plugin = instance;
 	}
 	
-	private Firework spawnFireworks(Player player) {
+	private static Firework spawnFireworks(Player player) {
 		Location loc = player.getLocation();
 		loc.add(0, 2, 0);
 		Firework firework = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
@@ -36,7 +36,7 @@ public class TaggedFireworks implements Listener {
 		return firework;
 	}
 	
-	public void fireworksTimer(Player player) {
+	public static void fireworksTimer(Player player) {
 		if (StatusCheck.isTagged(player) == false) {
 			return;
 		}
@@ -52,7 +52,7 @@ public class TaggedFireworks implements Listener {
 		}.runTaskTimer(plugin, 20, 20);
 	}
 	
-	private FireworkEffect buildFirework() {
+	private static FireworkEffect buildFirework() {
 		Color red = Color.RED;
 		FireworkEffect builtFirework = FireworkEffect.builder().withColor(red).build();
 		return builtFirework;
