@@ -33,6 +33,7 @@ public class SpawnCommand {
 		LocationSerializationUtility util = new LocationSerializationUtility();
 		String loc = util.createLocationFromPlayer(player);
 		spawnSetter.getConfig().set("locations.arenas." + name + ".spawn", loc);
+		spawnSetter.saveConfig();
 		player.sendMessage(ChatColor.GOLD + "Arena " + name + " spawn successfully set!");
 	}
 	
