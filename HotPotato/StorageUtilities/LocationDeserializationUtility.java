@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 
 public class LocationDeserializationUtility {
 	
@@ -14,9 +13,9 @@ public class LocationDeserializationUtility {
 		
 	}
 
-	public Location convertStringToLocation(String locString, Player player) {
+	public Location convertStringToLocation(String locString) {
 		if (locString.isEmpty() == true) {
-			return player.getLocation();
+			return null;
 		}
 		List<String> locParts = Arrays.asList(locString.split(","));
 		int size = locParts.size();
