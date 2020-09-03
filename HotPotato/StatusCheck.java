@@ -60,6 +60,9 @@ public class StatusCheck {
 	}
 	
 	public static boolean hasStarted(String arenaName) {
+		if (arenaList.containsKey(arenaName) == false) {
+			return false;
+		}
 		return arenaList.get(arenaName).hasStarted();
 	}
 	
