@@ -30,7 +30,7 @@ public class LobbyCommand {
 			return;
 		}
 		LocationDeserializationUtility util = new LocationDeserializationUtility();
-		Location loc = util.convertStringToLocation(locString, player);
+		Location loc = util.convertStringToLocation(locString);
 		player.teleport(loc);
 	}
 	
