@@ -3,8 +3,12 @@ package me.CloverCola.HotPotato;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.StorageUtilities.LocationDeserializationUtility;
 
 public class StartArena {
 
@@ -29,7 +33,8 @@ public class StartArena {
 
 	public static void countdown(String arenaName) {
 		new BukkitRunnable() {
-			int time = 30;
+			//Timer is currently lowered from 30 to 5 for faster testing
+			int time = 5;
 			@Override
 			public void run() {
 				if (time <= 0) {
@@ -73,10 +78,12 @@ public class StartArena {
 	public static void start(String arenaName) {
 		StatusCheck.setStarted(arenaName, true);
 		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		LocationManager manager = new LocationManager();
+		String locString  = (String) manager.getConfig().get("locations.arenas." + arenaName + ".spawn");
+		LocationDeserializationUtility util = new LocationDeserializationUtility();
+		Location loc = util.convertStringToLocation(locString);
 		for (int i = 0; i < playerList.size(); i++) {
-			//TODO
-			playerList.get(i).sendMessage(
-					ChatColor.GREEN + "This is where you WOULD be teleported to the game, if it was implemented yet!");
+			playerList.get(i).teleport(loc);
 		}
 		return;
 	}

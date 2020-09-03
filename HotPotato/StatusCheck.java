@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
+import me.CloverCola.HotPotato.Commands.LobbyCommand;
 import me.CloverCola.HotPotato.DataClasses.ArenaStatus;
 import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
 import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
@@ -113,6 +114,7 @@ public class StatusCheck {
 		String arenaName = status.getArena();
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);
 		player.removeMetadata("HotPotatoStatus", plugin);
+		LobbyCommand.teleportToLobby(player);
 		player.sendMessage(ChatColor.GREEN + "You have left the game!");
 	}
 
