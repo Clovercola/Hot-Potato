@@ -17,7 +17,7 @@ public class LeaveCommand {
 			return;
 		}
 		StatusCheck.leave(player);
-		player.sendMessage(ChatColor.GOLD + "You have left the arena!");
+		LobbyCommand.teleportToLobby(player);
 	}
 	
 }
