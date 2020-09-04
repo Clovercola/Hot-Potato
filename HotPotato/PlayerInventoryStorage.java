@@ -1,5 +1,8 @@
 package me.CloverCola.HotPotato;
 
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -10,18 +13,12 @@ import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
 
 public class PlayerInventoryStorage {
 	
-	private static HotPotatoMain plugin;
-	
 	public PlayerInventoryStorage() {
 		
 	}
 	
-	public void setPluginInstance(HotPotatoMain instance) {
-		plugin = instance;
-	}
-	
 	public static void storeInventory(Player player, InventoryStatusObject inv) {
-		FixedMetadataValue meta = new FixedMetadataValue(plugin, inv);
+		FixedMetadataValue meta = new FixedMetadataValue(HotPotatoMain.getPlugin(), inv);
 		player.setMetadata("HotPotatoStoredInventory", meta);
 		clearPlayer(player);
 		return;
@@ -40,19 +37,20 @@ public class PlayerInventoryStorage {
 		}
 		return;
 	}
-	
+
 	public static void retrieveInventory(Player player) {
 		clearPlayer(player);
 		MetadataValue meta = player.getMetadata("HotPotatoStoredInventory").get(0);
-		//Safety check
+		// Safety check
 		if (!(meta.value() instanceof InventoryStatusObject)) {
 			player.sendMessage(ChatColor.DARK_RED + "Error returning your inventory!");
+			Bukkit.getLogger().log(Level.SEVERE,
+					"Could not return " + player.getDisplayName() + "'s inventory after a Hot Potato game!");
 			return;
 		}
 		InventoryStatusObject status = (InventoryStatusObject) meta.value();
-		//Deletes the ISO metadata off the player.
-		player.removeMetadata("HotPotatoStoredInventory", plugin);
-		
+		// Deletes the ISO metadata off the player.
+		player.removeMetadata("HotPotatoStoredInventory", HotPotatoMain.getPlugin());
 		player.getInventory().setContents(status.getItems());
 		player.setLevel(status.getPlayerLevel());
 		player.setExp(status.getExpPoints());
@@ -63,5 +61,5 @@ public class PlayerInventoryStorage {
 		player.addPotionEffects(status.getPlayerEffects());
 		return;
 	}
-	
+
 }

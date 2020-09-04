@@ -17,15 +17,10 @@ import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class StatusCheck {
 
-	private static HotPotatoMain plugin;
 	private static HashMap<String, ArenaStatus> arenaList = new HashMap<String, ArenaStatus>();
 
 	public StatusCheck() {
 
-	}
-
-	public static void getPluginInstance(HotPotatoMain instance) {
-		plugin = instance;
 	}
 
 	public static int getPlayerCount(String arenaName) {
@@ -99,7 +94,7 @@ public class StatusCheck {
 
 	private static void setJoinedMeta(Player player, String arenaName) {
 		PlayerArenaStatus status = new PlayerArenaStatus(player, arenaName);
-		FixedMetadataValue data = new FixedMetadataValue(plugin, status);
+		FixedMetadataValue data = new FixedMetadataValue(HotPotatoMain.getPlugin(), status);
 		player.setMetadata("HotPotatoStatus", data);
 		return;
 	}
@@ -113,7 +108,7 @@ public class StatusCheck {
 		PlayerArenaStatus status = (PlayerArenaStatus) player.getMetadata("HotPotatoStatus").get(0).value();
 		String arenaName = status.getArena();
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);
-		player.removeMetadata("HotPotatoStatus", plugin);
+		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getPlugin());
 		LobbyCommand.teleportToLobby(player);
 		WinCondition.check(arenaName);
 		player.sendMessage(ChatColor.GREEN + "You have left the game!");

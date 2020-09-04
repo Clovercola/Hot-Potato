@@ -9,18 +9,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationDeserializationUtility;
+import me.CloverCola.HotPotato.TaggedPlayer.ChooseTaggedPlayer;
+import me.CloverCola.HotPotato.TaggedPlayer.PotatoTimer;
 
 public class StartArena {
-
-	private static HotPotatoMain plugin;
-
-	public StartArena() {
-
-	}
-
-	public static void setPluginInstance(HotPotatoMain instance) {
-		plugin = instance;
-	}
 
 	public static void checkIfCanStart(String arenaName) {
 		int count = StatusCheck.getPlayerCount(arenaName);
@@ -46,7 +38,7 @@ public class StartArena {
 				}
 				time--;
 			}
-		}.runTaskTimer(plugin, 20, 20);
+		}.runTaskTimer(HotPotatoMain.getPlugin(), 20, 20);
 		return;
 	}
 
@@ -82,9 +74,19 @@ public class StartArena {
 		String locString  = (String) manager.getConfig().get("locations.arenas." + arenaName + ".spawn");
 		LocationDeserializationUtility util = new LocationDeserializationUtility();
 		Location loc = util.convertStringToLocation(locString);
+		Player player;
 		for (int i = 0; i < playerList.size(); i++) {
-			playerList.get(i).teleport(loc);
+			player = playerList.get(i);
+			player.teleport(loc);
+			player.sendMessage(ChatColor.GOLD + "The first player will be chosen in 3 seconds!");
 		}
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				ChooseTaggedPlayer.randomTaggedPlayer(arenaName);
+				PotatoTimer.activateTimer(arenaName);
+			}
+		}.runTaskLater(HotPotatoMain.getPlugin(), 60);
 		return;
 	}
 
