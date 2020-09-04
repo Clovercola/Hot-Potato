@@ -1,4 +1,6 @@
-package me.CloverCola.HotPotato;
+package me.CloverCola.HotPotato.TaggedPlayer;
+
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -7,6 +9,9 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.CloverCola.HotPotato.HotPotatoMain;
+import me.CloverCola.HotPotato.StatusCheck;
 
 public class PotatoTimer implements Listener {
 	
@@ -20,9 +25,14 @@ public class PotatoTimer implements Listener {
 		plugin = instance;
 	}
 
-	public void activateTimer(Player player) {
+	public static void activateTimer(String arenaName) {
 		BossBar timerBar = Bukkit.createBossBar("Test Bar", BarColor.RED, BarStyle.SOLID);
-		timerBar.addPlayer(player);
+		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		Player player;
+		for (int i = 0; i < playerList.size(); i++) {
+			player = playerList.get(i);
+			timerBar.addPlayer(player);
+		}
 		new BukkitRunnable() {
 			int countDown = 30;
 			double progress = 1.0;
@@ -30,13 +40,14 @@ public class PotatoTimer implements Listener {
 			@Override
 			public void run() {
 				if (countDown == 0) {
-					player.sendMessage("The potato has exploded!");
+//					player.sendMessage("The potato has exploded!");
 					timerBar.setProgress(0.0);
 					timerBar.removeAll();
+					PlayerEliminated.eliminate(arenaName);
 					cancel();
 				}
 				else {
-					player.sendMessage("Time left: " + countDown);
+//					player.sendMessage("Time left: " + countDown);
 					countDown -= 1;
 					progress -= lower;
 					timerBar.setProgress(progress);

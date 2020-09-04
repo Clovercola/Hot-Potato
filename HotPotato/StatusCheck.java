@@ -115,6 +115,7 @@ public class StatusCheck {
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);
 		player.removeMetadata("HotPotatoStatus", plugin);
 		LobbyCommand.teleportToLobby(player);
+		WinCondition.check(arenaName);
 		player.sendMessage(ChatColor.GREEN + "You have left the game!");
 	}
 

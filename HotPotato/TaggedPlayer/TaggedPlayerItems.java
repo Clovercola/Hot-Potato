@@ -15,12 +15,12 @@ public class TaggedPlayerItems {
 		
 	}
 	
-	public void equipItems(Player player) {
+	public static void equipItems(Player player) {
 		player.getInventory().setItemInOffHand(customPotato());
 		player.getInventory().setHelmet(tntHelmet());
 	}
 
-	private ItemStack tntHelmet() {
+	private static ItemStack tntHelmet() {
 		ItemStack tnt = new ItemStack(Material.TNT);
 		ItemMeta meta = tnt.getItemMeta();
 		String name = ChatColor.RESET + "" + ChatColor.RED + "Potato Timer";
@@ -38,7 +38,7 @@ public class TaggedPlayerItems {
 		return tnt;
 	}
 	
-	private ItemStack customPotato() {
+	private static ItemStack customPotato() {
 		ItemStack potato = new ItemStack(Material.BAKED_POTATO);
 		ItemMeta meta = potato.getItemMeta();
 		String name = ChatColor.RESET + "" + ChatColor.RED + ChatColor.BOLD + "Hot Potato";
