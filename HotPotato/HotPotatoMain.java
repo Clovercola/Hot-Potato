@@ -19,18 +19,14 @@ public class HotPotatoMain extends JavaPlugin{
 		plugin = this;
 		getCommand("hotPotato").setExecutor(new Commands());
 		this.getServer().getPluginManager().registerEvents(new PreventItemMovement(), this);
-		this.getServer().getPluginManager().registerEvents(new PotatoTimer(plugin), this);
+		this.getServer().getPluginManager().registerEvents(new PotatoTimer(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
-		this.getServer().getPluginManager().registerEvents(new TaggedFireworks(plugin), this);
+		this.getServer().getPluginManager().registerEvents(new TaggedFireworks(), this);
 		this.getServer().getPluginManager().registerEvents(new PreventFireworkDamage(), this);
 		this.getServer().getPluginManager().registerEvents(new PotatoPass(), this);
 		this.saveConfig();
-		LocationManager initialize = new LocationManager(plugin);
+		LocationManager initialize = new LocationManager();
 		initialize.saveConfig();
-		PlayerInventoryStorage psInit = new PlayerInventoryStorage();
-		psInit.setPluginInstance(plugin);
-		StatusCheck.getPluginInstance(plugin);
-		StartArena.setPluginInstance(plugin);
 		}
 	
 	@Override
@@ -38,7 +34,7 @@ public class HotPotatoMain extends JavaPlugin{
 		StatusCheck.emptyAllArenas();
 	}
 	
-	public static HotPotatoMain getInstance() {
+	public static HotPotatoMain getPlugin() {
 		return plugin;
 	}
 	
