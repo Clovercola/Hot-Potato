@@ -15,14 +15,8 @@ import me.CloverCola.HotPotato.StatusCheck;
 
 public class TaggedFireworks implements Listener {
 	
-	private static HotPotatoMain plugin;
-	
 	public TaggedFireworks() {
 		
-	}
-	
-	public TaggedFireworks(HotPotatoMain instance) {
-		plugin = instance;
 	}
 	
 	private static Firework spawnFireworks(Player player) {
@@ -49,7 +43,7 @@ public class TaggedFireworks implements Listener {
 				Firework firework = spawnFireworks(player);
 				firework.detonate();
 			}
-		}.runTaskTimer(plugin, 20, 20);
+		}.runTaskTimer(HotPotatoMain.getPlugin(), 20, 20);
 	}
 	
 	private static FireworkEffect buildFirework() {

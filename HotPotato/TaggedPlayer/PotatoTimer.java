@@ -14,15 +14,9 @@ import me.CloverCola.HotPotato.HotPotatoMain;
 import me.CloverCola.HotPotato.StatusCheck;
 
 public class PotatoTimer implements Listener {
-	
-	private static HotPotatoMain plugin;
 
 	public PotatoTimer() {
 		// Empty Constructor
-	}
-	
-	public PotatoTimer(HotPotatoMain instance) {
-		plugin = instance;
 	}
 
 	public static void activateTimer(String arenaName) {
@@ -53,6 +47,6 @@ public class PotatoTimer implements Listener {
 					timerBar.setProgress(progress);
 				}
 			}//End of run
-		}.runTaskTimer(plugin, 0, 20);
+		}.runTaskTimer(HotPotatoMain.getPlugin(), 0, 20);
 	}//End of method
 }
