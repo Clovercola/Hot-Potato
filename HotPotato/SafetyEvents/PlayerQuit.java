@@ -7,10 +7,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.CloverCola.HotPotato.StatusCheck;
 
-/**
- * @author Xfur When the player quits, remove them from any arenas, return their
- *         inventory, and return them to the lobby.
- */
+
 public class PlayerQuit implements Listener{
 	
 	@EventHandler
