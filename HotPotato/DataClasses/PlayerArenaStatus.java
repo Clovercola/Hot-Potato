@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
  */
 public class PlayerArenaStatus {
 
-	private String arena;
+	private String arenaName;
 	private boolean isTagged;
 	private boolean isAlive;
 
@@ -21,8 +21,8 @@ public class PlayerArenaStatus {
 		// Constructor for accessing class
 	}
 
-	public PlayerArenaStatus(Player player, String arena) {
-		this.setArena(arena);
+	public PlayerArenaStatus(Player player, String arenaName) {
+		this.setArenaName(arenaName);
 		this.setTagged(false);
 		this.setAliveStatus(true);
 	}
@@ -30,15 +30,15 @@ public class PlayerArenaStatus {
 	/**
 	 * @return the arena
 	 */
-	public String getArena() {
-		return arena;
+	public String getArenaName() {
+		return arenaName;
 	}
 
 	/**
 	 * @param arena the arena to set
 	 */
-	public void setArena(String arena) {
-		this.arena = arena;
+	public void setArenaName(String arenaName) {
+		this.arenaName = arenaName;
 	}
 
 	/**
