@@ -44,9 +44,6 @@ public class StatusCheck {
 	public static void removeAllPlayersFromArena(String arenaName) {
 		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
 		for (int i = 0; i < playerList.size(); i++) {
-			Bukkit.getLogger().log(Level.INFO, playerList.get(i).getDisplayName());
-			Bukkit.getLogger().log(Level.INFO, "PlayerList size: " + playerList.size());
-			Bukkit.getLogger().log(Level.INFO, "Index: " + i);
 			leave(playerList.get(i));
 		}
 		while (playerList.isEmpty() == false) {
@@ -149,6 +146,13 @@ public class StatusCheck {
 	public static void setTagged(Player player, boolean tagged) {
 		PlayerArenaStatus status = getStatusMetadata(player);
 		status.setTagged(tagged);
+	}
+	
+	public static boolean shutdownArena(String arenaName) {
+		if (arenaList.remove(arenaName) == null) {
+			return true;
+		}
+		return false;
 	}
 
 	private static PlayerArenaStatus getStatusMetadata(Player player) {
