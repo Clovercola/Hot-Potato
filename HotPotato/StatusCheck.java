@@ -103,7 +103,7 @@ public class StatusCheck {
 		}
 		retrieveInventory(player);
 		PlayerArenaStatus status = (PlayerArenaStatus) player.getMetadata("HotPotatoStatus").get(0).value();
-		String arenaName = status.getArena();
+		String arenaName = status.getArenaName();
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);
 		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getPlugin());
 		LobbyCommand.teleportToLobby(player);
