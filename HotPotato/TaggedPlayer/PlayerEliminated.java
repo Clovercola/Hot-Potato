@@ -3,6 +3,7 @@ package me.CloverCola.HotPotato.TaggedPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import me.CloverCola.HotPotato.MetaHandler;
 import me.CloverCola.HotPotato.StatusCheck;
 
 public class PlayerEliminated {
@@ -14,7 +15,7 @@ public class PlayerEliminated {
 		Player player;
 		for (int i = 0; i < StatusCheck.getPlayerCount(arenaName); i++) {
 			player = StatusCheck.getPlayerFromArena(arenaName, i);
-			if (StatusCheck.isTagged(player) == true) {
+			if (MetaHandler.isTagged(player) == true) {
 				player.sendMessage(ChatColor.RED + "You were eliminated!");
 				StatusCheck.leave(player);
 				break;

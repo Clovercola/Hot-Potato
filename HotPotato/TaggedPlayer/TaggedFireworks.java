@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.CloverCola.HotPotato.HotPotatoMain;
-import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.MetaHandler;
 
 public class TaggedFireworks implements Listener {
 	
@@ -31,13 +31,13 @@ public class TaggedFireworks implements Listener {
 	}
 	
 	public static void fireworksTimer(Player player) {
-		if (StatusCheck.isTagged(player) == false) {
+		if (MetaHandler.isTagged(player) == false) {
 			return;
 		}
 		new BukkitRunnable(){
 			@Override
 			public void run() {
-				if (StatusCheck.isTagged(player) == false) {
+				if (MetaHandler.isTagged(player) == false) {
 					cancel();
 				}
 				Firework firework = spawnFireworks(player);
