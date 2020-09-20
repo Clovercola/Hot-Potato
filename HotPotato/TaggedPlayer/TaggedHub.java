@@ -16,9 +16,9 @@ import me.CloverCola.HotPotato.StatusCheck;
  */
 public class TaggedHub {
 
-	public static void activate(Player player, String arenaName) {
+	public static void activate(Player player) {
 		MetaHandler.setTagged(player, true);
-		StatusCheck.setTaggedInArena(arenaName, player);
+		StatusCheck.setTaggedInArena(player);
 		TaggedPlayerItems.equipItems(player);
 		TaggedFireworks.fireworksTimer(player);
 		return;
@@ -26,7 +26,7 @@ public class TaggedHub {
 	
 	//Aside from being a cutesy name, this helps communicate what this method does.
 	//I swear that's genuinely why I chose it.
-	public static void disarm(Player player, String arenaName) {
+	public static void disarm(Player player) {
 		MetaHandler.setTagged(player, false);
 		ItemStack air = new ItemStack(Material.AIR);
 		player.getInventory().setHelmet(air);

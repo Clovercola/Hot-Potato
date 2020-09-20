@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.MetaHandler;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -23,16 +23,16 @@ public class PotatoPass implements Listener {
 		if (checkIfValid(victim, damager) == false) {
 			return;
 		}
-		StatusCheck.setTagged(damager, false);
-		StatusCheck.setTagged(victim, true);
+		TaggedHub.activate(victim);
+		TaggedHub.disarm(damager);
 		sendPassedMessage(damager, victim);
 	}
 
 	private boolean checkIfValid(Player victim, Player damager) {
-		if (StatusCheck.isAlive(victim) == false) {
+		if (MetaHandler.isAlive(victim) == false) {
 			return false;
 		}
-		if (StatusCheck.isTagged(damager) == false) {
+		if (MetaHandler.isTagged(damager) == false) {
 			return false;
 		}
 		return true;
