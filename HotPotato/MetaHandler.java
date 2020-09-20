@@ -47,12 +47,9 @@ public class MetaHandler {
 	}
 
 	// This method assumes you have checked if the player is in an arena first.
-	public static void setTagged(Player player, boolean tagged, String arenaName) {
+	public static void setTagged(Player player, boolean tagged) {
 		PlayerArenaStatus status = getStatusMetadata(player);
 		status.setTagged(tagged);
-		if (tagged == true) {
-			StatusCheck.setTaggedInArena(arenaName, player);
-		}
 		return;
 	}
 
