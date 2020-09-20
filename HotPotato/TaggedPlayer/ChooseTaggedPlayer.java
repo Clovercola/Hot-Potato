@@ -12,7 +12,7 @@ public class ChooseTaggedPlayer {
 		int count = StatusCheck.getPlayerCount(arenaName);
 		int tagSlot = generateRandomNumber(count);
 		Player player = StatusCheck.getPlayerFromArena(arenaName, tagSlot);
-		TaggedHub.activate(player, arenaName);
+		TaggedHub.activate(player);
 		return;
 	}
 
