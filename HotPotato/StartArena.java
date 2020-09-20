@@ -25,8 +25,9 @@ public class StartArena {
 
 	public static void countdown(String arenaName) {
 		new BukkitRunnable() {
-			//Timer is currently lowered from 30 to 5 for faster testing
+			// Timer is currently lowered from 30 to 5 for faster testing
 			int time = 5;
+
 			@Override
 			public void run() {
 				if (time <= 0) {
@@ -70,10 +71,7 @@ public class StartArena {
 	public static void start(String arenaName) {
 		StatusCheck.setStarted(arenaName, true);
 		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
-		LocationManager manager = new LocationManager();
-		String locString  = (String) manager.getConfig().get("locations.arenas." + arenaName + ".spawn");
-		LocationDeserializationUtility util = new LocationDeserializationUtility();
-		Location loc = util.convertStringToLocation(locString);
+		Location loc = getSpawnLoc(arenaName);
 		Player player;
 		for (int i = 0; i < playerList.size(); i++) {
 			player = playerList.get(i);
@@ -88,6 +86,14 @@ public class StartArena {
 			}
 		}.runTaskLater(HotPotatoMain.getPlugin(), 60);
 		return;
+	}
+
+	private static Location getSpawnLoc(String arenaName) {
+		LocationManager manager = new LocationManager();
+		String locString = (String) manager.getConfig().get("locations.arenas." + arenaName + ".spawn");
+		LocationDeserializationUtility util = new LocationDeserializationUtility();
+		Location loc = util.convertStringToLocation(locString);
+		return loc;
 	}
 
 }
