@@ -6,14 +6,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.MetaHandler;
 
 public class PreventItemMovement implements Listener {
 
 	@EventHandler
 	public void clickingInventoryItem(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		if (StatusCheck.isInArena(player) == false) {
+		if (MetaHandler.inArena(player) == false) {
 			return;
 		}
 		event.setCancelled(true);
@@ -22,7 +22,7 @@ public class PreventItemMovement implements Listener {
 	@EventHandler
 	public void swapHandsEvent(PlayerSwapHandItemsEvent event) {
 		Player player = (Player) event.getPlayer();
-		if (StatusCheck.isInArena(player) == false) {
+		if (MetaHandler.inArena(player) == false) {
 			return;
 		}
 		event.setCancelled(true);

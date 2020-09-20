@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.MetaHandler;
 
 public class PreventFireworkDamage implements Listener {
 
@@ -19,7 +19,7 @@ public class PreventFireworkDamage implements Listener {
 			return;
 		}
 		Player player = (Player) event.getEntity();
-		if (StatusCheck.isInArena(player) == false) {
+		if (MetaHandler.inArena(player) == false) {
 			return;
 		}
 		event.setCancelled(true);
