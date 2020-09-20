@@ -26,6 +26,11 @@ public class MetaHandler {
 		}
 		return true;
 	}
+	
+	public static String getArena(Player player) {
+		PlayerArenaStatus status = getStatusMetadata(player);
+		return status.getArenaName();
+	}
 
 	public static boolean isAlive(Player player) {
 		if (inArena(player) == false) {
@@ -50,6 +55,9 @@ public class MetaHandler {
 	public static void setTagged(Player player, boolean tagged) {
 		PlayerArenaStatus status = getStatusMetadata(player);
 		status.setTagged(tagged);
+		if (tagged == true) {
+			StatusCheck.setTaggedInArena(player);
+		}
 		return;
 	}
 

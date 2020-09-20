@@ -61,6 +61,12 @@ public class StatusCheck {
 		return arenaList.get(arenaName).getTaggedPlayer();
 	}
 
+	public static void setTaggedInArena(Player player) {
+		String arenaName = MetaHandler.getArena(player);
+		arenaList.get(arenaName).setTaggedPlayer(player);
+		return;
+	}
+	
 	public static void setTaggedInArena(String arenaName, Player player) {
 		arenaList.get(arenaName).setTaggedPlayer(player);
 		return;
