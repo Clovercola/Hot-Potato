@@ -60,14 +60,26 @@ public class MetaHandler {
 		}
 		return;
 	}
+	
+	public static void removeMetadata(Player player) {
+		
+	}
 
 	private static PlayerArenaStatus getStatusMetadata(Player player) {
 		MetadataValue data = player.getMetadata("HotPotatoStatus").get(0);
 		if (checkForMetaError(data) == false) {
 			emergencyError(player);
+			return null;
 		}
 		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
 		return status;
+	}
+	
+	public static boolean checkIfHasMetadata(Player player) {
+		if (player.hasMetadata("HotPotatoStatus") == false) {
+			return false;
+		}
+		return true;
 	}
 
 	private static void emergencyError(Player player) {
@@ -76,6 +88,7 @@ public class MetaHandler {
 				"Kicking " + player.getDisplayName() + " from the HotPotato game to prevent errors!");
 		player.sendMessage(ChatColor.DARK_RED + "A serious error occured, and you have been kicked from the game!");
 		StatusCheck.leave(player);
+		return;
 	}
 
 	private static boolean checkForMetaError(MetadataValue data) {

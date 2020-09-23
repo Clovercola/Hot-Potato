@@ -20,14 +20,23 @@ public class StatusCheck {
 	}
 
 	public static int getPlayerCount(String arenaName) {
+		if (checkArenaCreated(arenaName) == false) {
+			return 0;
+		}
 		return arenaList.get(arenaName).getWaitingPlayers().size();
 	}
 
 	public static Player getPlayerFromArena(String arenaName, int slot) {
+		if (checkArenaCreated(arenaName) == false) {
+			return null;
+		}
 		return arenaList.get(arenaName).getWaitingPlayers().get(slot);
 	}
 
 	public static ArrayList<Player> getAllPlayersFromArena(String arenaName) {
+		if (checkArenaCreated(arenaName) == false) {
+			return null;
+		}
 		return arenaList.get(arenaName).getWaitingPlayers();
 	}
 
@@ -102,14 +111,20 @@ public class StatusCheck {
 			player.sendMessage(ChatColor.GREEN + "You're not in a game!");
 			return;
 		}
+		LobbyCommand.teleportToLobby(player);
+		removePlayer(player);
+		player.sendMessage(ChatColor.GREEN + "You have left the game!");
+		return;
+	}
+	
+	public static void removePlayer(Player player) {
 		retrieveInventory(player);
+		//TODO change this to use MetadataHandler
 		PlayerArenaStatus status = (PlayerArenaStatus) player.getMetadata("HotPotatoStatus").get(0).value();
 		String arenaName = status.getArenaName();
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);
 		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getPlugin());
-		LobbyCommand.teleportToLobby(player);
 		WinCondition.check(arenaName);
-		player.sendMessage(ChatColor.GREEN + "You have left the game!");
 		return;
 	}
 
@@ -124,6 +139,13 @@ public class StatusCheck {
 			return true;
 		}
 		return false;
+	}
+	
+	private static boolean checkArenaCreated(String arenaName) {
+		if (arenaList.containsKey(arenaName) == false) {
+			return false;
+		}
+		return true;
 	}
 
 }
