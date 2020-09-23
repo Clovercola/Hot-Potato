@@ -7,17 +7,22 @@ import me.CloverCola.HotPotato.Commands.LobbyCommand;
 
 public class WinCondition {
 	
-	public static void check(String arenaName) {
+	public static boolean check(String arenaName) {
 		if (StatusCheck.getPlayerCount(arenaName) == 1) {
-			Player player = StatusCheck.getPlayerFromArena(arenaName, 0);
-			player.sendMessage(ChatColor.GOLD + "Congratulations! You won!");
-			LobbyCommand.teleportToLobby(player);
-			StatusCheck.shutdownArena(arenaName);
-			return;
+			endGame(arenaName);
+			return true;
 		} else if (StatusCheck.getPlayerCount(arenaName) < 1) {
 			StatusCheck.shutdownArena(arenaName);
-			return;
+			return true;
 		}
+		return false;
+	}
+	
+	private static void endGame(String arenaName) {
+		Player player = StatusCheck.getPlayerFromArena(arenaName, 0);
+		player.sendMessage(ChatColor.GOLD + "Congratulations! You won!");
+		LobbyCommand.teleportToLobby(player);
+		StatusCheck.shutdownArena(arenaName);
 		return;
 	}
 
