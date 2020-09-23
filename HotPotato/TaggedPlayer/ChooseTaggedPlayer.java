@@ -13,6 +13,7 @@ public class ChooseTaggedPlayer {
 		int tagSlot = generateRandomNumber(count);
 		Player player = StatusCheck.getPlayerFromArena(arenaName, tagSlot);
 		TaggedHub.activate(player);
+		PotatoPass.gotPotato(player);
 		return;
 	}
 

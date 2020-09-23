@@ -26,6 +26,7 @@ public class PotatoPass implements Listener {
 		TaggedHub.activate(victim);
 		TaggedHub.disarm(damager);
 		sendPassedMessage(damager, victim);
+		return;
 	}
 
 	private boolean checkIfValid(Player victim, Player damager) {
@@ -39,12 +40,21 @@ public class PotatoPass implements Listener {
 	}
 
 	private void sendPassedMessage(Player oldTagged, Player newTagged) {
+		passedOnPotato(oldTagged);
+		gotPotato(newTagged);
+	}
+	
+	public static void passedOnPotato(Player oldTagged) {
 		String passed = ChatColor.GOLD + "You passed the potato!";
-		String warn = ChatColor.RED + "You have the potato!";
 		oldTagged.sendMessage(passed);
 		BaseComponent[] comp = TextComponent.fromLegacyText(passed, ChatColor.GOLD);
 		oldTagged.spigot().sendMessage(ChatMessageType.ACTION_BAR, comp);
 		oldTagged.sendTitle(null, null, 0, 0, 0);
+		return;
+	}
+	
+	public static void gotPotato(Player newTagged) {
+		String warn = ChatColor.RED + "You have the potato!";
 		newTagged.sendMessage(warn);
 		newTagged.sendTitle(warn, "", 10, 60, 20);
 		BaseComponent[] taggedComp = TextComponent.fromLegacyText(warn, ChatColor.DARK_RED);
