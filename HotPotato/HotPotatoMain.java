@@ -34,7 +34,7 @@ public class HotPotatoMain extends JavaPlugin{
 		StatusCheck.emptyAllArenas();
 	}
 	
-	public static HotPotatoMain getPlugin() {
+	public static HotPotatoMain getInstance() {
 		return plugin;
 	}
 	
