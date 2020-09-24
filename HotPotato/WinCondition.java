@@ -21,6 +21,7 @@ public class WinCondition {
 	private static void endGame(String arenaName) {
 		Player player = StatusCheck.getPlayerFromArena(arenaName, 0);
 		player.sendMessage(ChatColor.GOLD + "Congratulations! You won!");
+		StatusCheck.removePlayer(player);
 		LobbyCommand.teleportToLobby(player);
 		StatusCheck.shutdownArena(arenaName);
 		return;
