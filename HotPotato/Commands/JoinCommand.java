@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import me.CloverCola.HotPotato.MetaHandler;
 import me.CloverCola.HotPotato.StatusCheck;
 import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationDeserializationUtility;
@@ -20,7 +21,7 @@ public class JoinCommand {
 			return;
 		}
 		String arena = args[1];
-		if (StatusCheck.isInArena(player) == true) {
+		if (MetaHandler.inArena(player) == true) {
 			player.sendMessage(ChatColor.RED + "You're already in a game!");
 			return;
 		}

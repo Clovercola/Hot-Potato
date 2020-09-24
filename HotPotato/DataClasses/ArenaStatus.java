@@ -8,6 +8,7 @@ public class ArenaStatus {
 	
 	private ArrayList<Player> waitingPlayers = new ArrayList<Player>();
 	private boolean started;
+	private Player taggedPlayer;
 	
 	public ArenaStatus() {
 		started = false;
@@ -15,7 +16,8 @@ public class ArenaStatus {
 	
 	public ArenaStatus(Player player) {
 		waitingPlayers.add(player);
-		started = false;
+		setStarted(false);
+		setTaggedPlayer(null);
 	}
 
 	/**
@@ -35,7 +37,7 @@ public class ArenaStatus {
 	/**
 	 * @return the started
 	 */
-	public boolean isStarted() {
+	public boolean hasStarted() {
 		return started;
 	}
 
@@ -44,6 +46,20 @@ public class ArenaStatus {
 	 */
 	public void setStarted(boolean started) {
 		this.started = started;
+	}
+
+	/**
+	 * @return the taggedPlayer
+	 */
+	public Player getTaggedPlayer() {
+		return taggedPlayer;
+	}
+
+	/**
+	 * @param taggedPlayer the taggedPlayer to set
+	 */
+	public void setTaggedPlayer(Player taggedPlayer) {
+		this.taggedPlayer = taggedPlayer;
 	}
 	
 }

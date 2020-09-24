@@ -2,24 +2,35 @@ package me.CloverCola.HotPotato.TaggedPlayer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import me.CloverCola.HotPotato.HotPotatoMain;
 import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.WinCondition;
+import me.CloverCola.HotPotato.Commands.LobbyCommand;
 
 public class PlayerEliminated {
-
-	// This class will change a LOT.
-	//It's pretty barebones right now because I'm cleaning up my code next.
-	//So this will get a method or two in order to get the tagged player directly.
+	
 	public static void eliminate(String arenaName) {
-		Player player;
-		for (int i = 0; i < StatusCheck.getPlayerCount(arenaName); i++) {
-			player = StatusCheck.getPlayerFromArena(arenaName, i);
-			if (StatusCheck.isTagged(player) == true) {
-				player.sendMessage(ChatColor.RED + "You were eliminated!");
-				StatusCheck.leave(player);
-				break;
-			}
+		Player player = StatusCheck.getTaggedFromArena(arenaName);
+		player.sendMessage(ChatColor.RED + "You were eliminated! Better luck next time!");
+		StatusCheck.removePlayer(player);
+		LobbyCommand.teleportToLobby(player);
+		chooseNewTagged(arenaName);
+		return;
+	}
+	
+	private static void chooseNewTagged(String arenaName) {
+		if (WinCondition.check(arenaName) == true) {
+			return;
 		}
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				ChooseTaggedPlayer.randomTaggedPlayer(arenaName);
+			}
+		}.runTaskLater(HotPotatoMain.getInstance(), 60);
+		return;
 	}
 
 }

@@ -3,18 +3,28 @@ package me.CloverCola.HotPotato;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class WinCondition {
+import me.CloverCola.HotPotato.Commands.LobbyCommand;
 
-	// Very placeholder win check, I'm aware. I need sleep but I wanted to get
-	// something that somewhat resembles the actual
-	// format for the finished product done.
-	public static void check(String arenaName) {
+public class WinCondition {
+	
+	public static boolean check(String arenaName) {
 		if (StatusCheck.getPlayerCount(arenaName) == 1) {
-			Player player = StatusCheck.getPlayerFromArena(arenaName, 0);
-			player.sendMessage(ChatColor.GOLD + "You won!");
+			endGame(arenaName);
+			return true;
 		} else if (StatusCheck.getPlayerCount(arenaName) < 1) {
-			// Shut down arena
+			StatusCheck.shutdownArena(arenaName);
+			return true;
 		}
+		return false;
+	}
+	
+	private static void endGame(String arenaName) {
+		Player player = StatusCheck.getPlayerFromArena(arenaName, 0);
+		player.sendMessage(ChatColor.GOLD + "Congratulations! You won!");
+		StatusCheck.removePlayer(player);
+		LobbyCommand.teleportToLobby(player);
+		StatusCheck.shutdownArena(arenaName);
+		return;
 	}
 
 }

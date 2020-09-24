@@ -1,6 +1,7 @@
 package me.CloverCola.HotPotato.TaggedPlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -14,21 +15,20 @@ import me.CloverCola.HotPotato.HotPotatoMain;
 import me.CloverCola.HotPotato.StatusCheck;
 
 public class PotatoTimer implements Listener {
+	
+	private static HashMap<String, BossBar> timerList = new HashMap<String, BossBar>();
 
 	public PotatoTimer() {
 		// Empty Constructor
 	}
 
 	public static void activateTimer(String arenaName) {
-		BossBar timerBar = Bukkit.createBossBar("Test Bar", BarColor.RED, BarStyle.SOLID);
-		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
-		Player player;
-		for (int i = 0; i < playerList.size(); i++) {
-			player = playerList.get(i);
-			timerBar.addPlayer(player);
-		}
+		BossBar timerBar = Bukkit.createBossBar("Fuse", BarColor.RED, BarStyle.SOLID);
+		connectToBossBar(arenaName, timerBar);
+		timerList.putIfAbsent(arenaName, timerBar);
 		new BukkitRunnable() {
-			int countDown = 30;
+			//Countdown temporarily lowered for testing
+			int countDown = 10;
 			double progress = 1.0;
 			double lower = 1.0 / countDown;
 			@Override
@@ -46,7 +46,28 @@ public class PotatoTimer implements Listener {
 					progress -= lower;
 					timerBar.setProgress(progress);
 				}
-			}//End of run
-		}.runTaskTimer(HotPotatoMain.getPlugin(), 0, 20);
-	}//End of method
+			}
+		}.runTaskTimer(HotPotatoMain.getInstance(), 0, 20);
+		return;
+	}
+	
+	private static void connectToBossBar(String arenaName, BossBar timerBar) {
+		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		Player player;
+		for (int i = 0; i < playerList.size(); i++) {
+			player = playerList.get(i);
+			timerBar.addPlayer(player);
+		}
+		return;
+	}
+	
+	public static void shutDownBossBars() {
+		for (String arenaName : timerList.keySet()) {
+			timerList.get(arenaName).removeAll();
+			timerList.remove(arenaName);
+		}
+		return;
+	}
+	
+	
 }
