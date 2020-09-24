@@ -62,7 +62,7 @@ public class MetaHandler {
 	}
 	
 	public static void removeMetadata(Player player) {
-		
+		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getPlugin());
 	}
 
 	private static PlayerArenaStatus getStatusMetadata(Player player) {
