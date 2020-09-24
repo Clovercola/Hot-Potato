@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.CloverCola.HotPotato.HotPotatoMain;
 import me.CloverCola.HotPotato.StatusCheck;
 import me.CloverCola.HotPotato.WinCondition;
+import me.CloverCola.HotPotato.Commands.LobbyCommand;
 
 public class PlayerEliminated {
 	
@@ -14,7 +15,7 @@ public class PlayerEliminated {
 		Player player = StatusCheck.getTaggedFromArena(arenaName);
 		player.sendMessage(ChatColor.RED + "You were eliminated! Better luck next time!");
 		StatusCheck.removePlayer(player);
-		StatusCheck.setTaggedInArena(null);
+		LobbyCommand.teleportToLobby(player);
 		chooseNewTagged(arenaName);
 		return;
 	}
@@ -28,7 +29,7 @@ public class PlayerEliminated {
 			public void run() {
 				ChooseTaggedPlayer.randomTaggedPlayer(arenaName);
 			}
-		}.runTaskLater(HotPotatoMain.getPlugin(), 60);
+		}.runTaskLater(HotPotatoMain.getInstance(), 60);
 		return;
 	}
 
