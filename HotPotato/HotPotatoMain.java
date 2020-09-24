@@ -32,6 +32,7 @@ public class HotPotatoMain extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		StatusCheck.emptyAllArenas();
+		PotatoTimer.shutDownBossBars();
 	}
 	
 	public static HotPotatoMain getInstance() {
