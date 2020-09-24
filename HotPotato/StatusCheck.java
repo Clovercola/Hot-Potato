@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import me.CloverCola.HotPotato.Commands.LobbyCommand;
 import me.CloverCola.HotPotato.DataClasses.ArenaStatus;
 import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
-import me.CloverCola.HotPotato.DataClasses.PlayerArenaStatus;
 
 public class StatusCheck {
 
@@ -119,11 +118,9 @@ public class StatusCheck {
 	
 	public static void removePlayer(Player player) {
 		retrieveInventory(player);
-		//TODO change this to use MetadataHandler
-		PlayerArenaStatus status = (PlayerArenaStatus) player.getMetadata("HotPotatoStatus").get(0).value();
-		String arenaName = status.getArenaName();
+		String arenaName = MetaHandler.getArena(player);
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);
-		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getPlugin());
+		MetaHandler.removeMetadata(player);
 		WinCondition.check(arenaName);
 		return;
 	}
