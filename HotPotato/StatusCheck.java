@@ -70,6 +70,9 @@ public class StatusCheck {
 	}
 
 	public static void setTaggedInArena(Player player) {
+		if (MetaHandler.inArena(player) == false) {
+			//TODO kick player
+		}
 		String arenaName = MetaHandler.getArena(player);
 		arenaList.get(arenaName).setTaggedPlayer(player);
 		return;
