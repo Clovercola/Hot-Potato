@@ -9,7 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationSerializationUtility;
 
 public class SetLobby {
@@ -67,7 +67,7 @@ public class SetLobby {
 	}
 	
 	private static void writeLobby(String locString, Player player) {
-		LocationManager lobby = new LocationManager();
+		LocationFileManager lobby = new LocationFileManager();
 		try {
 			lobby.getConfig().set("locations.lobby", locString);
 			lobby.saveConfig();

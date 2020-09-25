@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.MetaHandler;
-import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.StatusManager;
 
 public class LeaveCommand {
 	
@@ -13,7 +13,7 @@ public class LeaveCommand {
 			player.sendMessage(ChatColor.RED + "You aren't in an arena!");
 			return;
 		}
-		StatusCheck.leave(player);
+		StatusManager.leave(player);
 		LobbyCommand.teleportToLobby(player);
 	}
 	

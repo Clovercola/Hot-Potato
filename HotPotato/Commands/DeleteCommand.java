@@ -3,7 +3,7 @@ package me.CloverCola.HotPotato.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 
 public class DeleteCommand {
 
@@ -22,7 +22,7 @@ public class DeleteCommand {
 	
 	private static void deleteArena(Player player, String[] args) {
 		String name = args[1];
-		LocationManager delete = new LocationManager();
+		LocationFileManager delete = new LocationFileManager();
 		if (delete.getConfig().contains("locations.arenas." + name) == false) {
 			player.sendMessage(ChatColor.RED + "Arena " + name + " does not exist!");
 			return;

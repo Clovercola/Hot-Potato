@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.ConfigUtilities.ArenaExistance;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationSerializationUtility;
 
 public class EntranceCommand {
@@ -25,7 +25,7 @@ public class EntranceCommand {
 	}
 	
 	private static void createEntrance(Player player, String name) {
-		LocationManager entranceSetter = new LocationManager();
+		LocationFileManager entranceSetter = new LocationFileManager();
 		if (ArenaExistance.doesArenaExist(entranceSetter, name) == false) {
 			ArenaExistance.warnMissingArena(player, name);
 			return;

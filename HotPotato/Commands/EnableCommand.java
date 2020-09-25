@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.ConfigUtilities.ArenaExistance;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 
 public class EnableCommand {
 
@@ -22,7 +22,7 @@ public class EnableCommand {
 	}
 	
 	public static void enableArena(Player player, String[] args) {
-		LocationManager enable = new LocationManager();
+		LocationFileManager enable = new LocationFileManager();
 		String name = args[1];
 		if (ArenaExistance.doesArenaExist(enable, name) == false) {
 			ArenaExistance.warnMissingArena(player, name);

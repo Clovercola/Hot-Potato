@@ -5,8 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.MetaHandler;
-import me.CloverCola.HotPotato.StatusCheck;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.StatusManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationDeserializationUtility;
 
 public class JoinCommand {
@@ -25,7 +25,7 @@ public class JoinCommand {
 			player.sendMessage(ChatColor.RED + "You're already in a game!");
 			return;
 		}
-		LocationManager check = new LocationManager();
+		LocationFileManager check = new LocationFileManager();
 		if (check.getConfig().contains("locations.arenas." + arena) == false) {
 			player.sendMessage(ChatColor.RED + "That arena does not exist!");
 			return;
@@ -34,11 +34,11 @@ public class JoinCommand {
 			player.sendMessage(ChatColor.RED + "That arena is currently disabled and cannot be joined right now!");
 			return;
 		}
-		if (StatusCheck.hasStarted(arena) == true) {
+		if (StatusManager.hasStarted(arena) == true) {
 			player.sendMessage(ChatColor.RED + "That arena has already started!");
 			return;
 		}
-		StatusCheck.join(player, arena);
+		StatusManager.join(player, arena);
 		teleportToEntrance(arena, player);
 		player.sendMessage(ChatColor.GOLD + "You have joined arena " + arena + "!");
 	}
@@ -48,7 +48,7 @@ public class JoinCommand {
 	}
 	
 	private static void teleportToEntrance(String arenaName, Player player) {
-		LocationManager manager = new LocationManager();
+		LocationFileManager manager = new LocationFileManager();
 		LocationDeserializationUtility util = new LocationDeserializationUtility();
 		String locString = (String) manager.getConfig().get("locations.arenas." + arenaName + ".entrance");
 		Location loc = util.convertStringToLocation(locString);
