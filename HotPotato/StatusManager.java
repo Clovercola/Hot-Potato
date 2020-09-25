@@ -24,21 +24,21 @@ public class StatusManager {
 		if (checkArenaCreated(arenaName) == false) {
 			return 0;
 		}
-		return arenaList.get(arenaName).getWaitingPlayers().size();
+		return arenaList.get(arenaName).getPlayers().size();
 	}
 
 	public static Player getPlayerFromArena(String arenaName, int slot) {
 		if (checkArenaCreated(arenaName) == false) {
 			return null;
 		}
-		return arenaList.get(arenaName).getWaitingPlayers().get(slot);
+		return arenaList.get(arenaName).getPlayers().get(slot);
 	}
 
 	public static ArrayList<Player> getAllPlayersFromArena(String arenaName) {
 		if (checkArenaCreated(arenaName) == false) {
 			return null;
 		}
-		return arenaList.get(arenaName).getWaitingPlayers();
+		return arenaList.get(arenaName).getPlayers();
 	}
 
 	public static void emptyAllArenas() {
@@ -90,7 +90,7 @@ public class StatusManager {
 			ArenaStatus status = new ArenaStatus(player);
 			arenaList.put(arenaName, status);
 		} else {
-			arenaList.get(arenaName).getWaitingPlayers().add(player);
+			arenaList.get(arenaName).getPlayers().add(player);
 		}
 		storeInventory(player);
 		MetaHandler.setJoinedMeta(player, arenaName);
@@ -127,7 +127,7 @@ public class StatusManager {
 		}
 		retrieveInventory(player);
 		String arenaName = MetaHandler.getArena(player);
-		arenaList.get(arenaName).getWaitingPlayers().remove(player);
+		arenaList.get(arenaName).getPlayers().remove(player);
 		MetaHandler.removeMetadata(player);
 		WinCondition.check(arenaName);
 		return;
