@@ -11,21 +11,21 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import me.CloverCola.HotPotato.HotPotatoMain;
 
-public class LocationManager {
+public class LocationFileManager {
 
 	private FileConfiguration dataConfig = null;
 	private File configFile = null;
 	
-	public LocationManager() {
+	public LocationFileManager() {
 		saveConfig();
 	}
 
 	public void reloadConfig() {
 		if (this.configFile == null) {
-			this.configFile = new File(HotPotatoMain.getPlugin().getDataFolder(), "locations.yml");
+			this.configFile = new File(HotPotatoMain.getInstance().getDataFolder(), "locations.yml");
 		}
 		this.dataConfig = YamlConfiguration.loadConfiguration(this.configFile);
-		InputStream defaultStream = HotPotatoMain.getPlugin().getResource("locations.yml");
+		InputStream defaultStream = HotPotatoMain.getInstance().getResource("locations.yml");
 		if (defaultStream != null) {
 			YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
 			this.dataConfig.setDefaults(defaultConfig);
@@ -46,17 +46,17 @@ public class LocationManager {
 		try {
 			this.getConfig().save(this.configFile);
 		} catch (IOException e) {
-			HotPotatoMain.getPlugin().getLogger().log(Level.SEVERE,
+			HotPotatoMain.getInstance().getLogger().log(Level.SEVERE,
 					"Could not save Locations file! Changes have NOT been saved!");
 		}
 	}
 
 	public void saveDefaultConfig() {
 		if (this.configFile == null) {
-			this.configFile = new File(HotPotatoMain.getPlugin().getDataFolder(), "locations.yml");
+			this.configFile = new File(HotPotatoMain.getInstance().getDataFolder(), "locations.yml");
 		}
 		if (!this.configFile.exists()) {
-			HotPotatoMain.getPlugin().saveResource("locations.yml", false);
+			HotPotatoMain.getInstance().saveResource("locations.yml", false);
 		}
 	}
 

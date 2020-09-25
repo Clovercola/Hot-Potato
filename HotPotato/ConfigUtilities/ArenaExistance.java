@@ -10,7 +10,7 @@ public class ArenaExistance {
 
 	}
 
-	public static boolean doesArenaExist(LocationManager manager, String name) {
+	public static boolean doesArenaExist(LocationFileManager manager, String name) {
 		if (manager.getConfig().contains("locations.arenas." + name) == false) {
 			return false;
 		}
