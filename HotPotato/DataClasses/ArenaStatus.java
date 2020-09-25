@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class ArenaStatus {
 	
-	private ArrayList<Player> waitingPlayers = new ArrayList<Player>();
+	private ArrayList<Player> arenaPlayers = new ArrayList<Player>();
 	private boolean started;
 	private Player taggedPlayer;
 	
@@ -15,7 +15,7 @@ public class ArenaStatus {
 	}
 	
 	public ArenaStatus(Player player) {
-		waitingPlayers.add(player);
+		arenaPlayers.add(player);
 		setStarted(false);
 		setTaggedPlayer(null);
 	}
@@ -23,15 +23,15 @@ public class ArenaStatus {
 	/**
 	 * @return the waitingPlayers
 	 */
-	public ArrayList<Player> getWaitingPlayers() {
-		return waitingPlayers;
+	public ArrayList<Player> getPlayers() {
+		return arenaPlayers;
 	}
 
 	/**
 	 * @param waitingPlayers the waitingPlayers to set
 	 */
-	public void setWaitingPlayers(ArrayList<Player> waitingPlayers) {
-		this.waitingPlayers = waitingPlayers;
+	public void setPlayers(ArrayList<Player> arenaPlayers) {
+		this.arenaPlayers = arenaPlayers;
 	}
 
 	/**
