@@ -15,7 +15,7 @@ public class MetaHandler {
 
 	public static void setJoinedMeta(Player player, String arenaName) {
 		PlayerArenaStatus status = new PlayerArenaStatus(player, arenaName);
-		FixedMetadataValue data = new FixedMetadataValue(HotPotatoMain.getPlugin(), status);
+		FixedMetadataValue data = new FixedMetadataValue(HotPotatoMain.getInstance(), status);
 		player.setMetadata("HotPotatoStatus", data);
 		return;
 	}
@@ -56,13 +56,13 @@ public class MetaHandler {
 		PlayerArenaStatus status = getStatusMetadata(player);
 		status.setTagged(tagged);
 		if (tagged == true) {
-			StatusCheck.setTaggedInArena(player);
+			StatusManager.setTaggedInArena(player);
 		}
 		return;
 	}
 	
 	public static void removeMetadata(Player player) {
-		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getPlugin());
+		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getInstance());
 	}
 
 	private static PlayerArenaStatus getStatusMetadata(Player player) {
@@ -74,20 +74,13 @@ public class MetaHandler {
 		PlayerArenaStatus status = (PlayerArenaStatus) data.value();
 		return status;
 	}
-	
-	public static boolean checkIfHasMetadata(Player player) {
-		if (player.hasMetadata("HotPotatoStatus") == false) {
-			return false;
-		}
-		return true;
-	}
 
 	private static void emergencyError(Player player) {
 		Bukkit.getLogger().log(Level.SEVERE, "Error grabbing Metadata for player " + player.getDisplayName() + "!");
 		Bukkit.getLogger().log(Level.INFO,
 				"Kicking " + player.getDisplayName() + " from the HotPotato game to prevent errors!");
 		player.sendMessage(ChatColor.DARK_RED + "A serious error occured, and you have been kicked from the game!");
-		StatusCheck.leave(player);
+		StatusManager.leave(player);
 		return;
 	}
 
