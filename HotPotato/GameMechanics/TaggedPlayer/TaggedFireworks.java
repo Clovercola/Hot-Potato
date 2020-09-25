@@ -1,16 +1,8 @@
-package me.CloverCola.HotPotato.TaggedPlayer;
+package me.CloverCola.HotPotato.GameMechanics.TaggedPlayer;
 
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import me.CloverCola.HotPotato.HotPotatoMain;
 import me.CloverCola.HotPotato.MetaHandler;
 
 public class TaggedFireworks implements Listener {
@@ -18,7 +10,8 @@ public class TaggedFireworks implements Listener {
 	public TaggedFireworks() {
 		
 	}
-	
+	/*
+	 * 
 	private static Firework spawnFireworks(Player player) {
 		Location loc = player.getLocation();
 		loc.add(0, 2, 0);
@@ -30,27 +23,37 @@ public class TaggedFireworks implements Listener {
 		return firework;
 	}
 	
+	*/
+	
 	public static void fireworksTimer(Player player) {
 		if (MetaHandler.isTagged(player) == false) {
 			return;
 		}
-		new BukkitRunnable(){
-			@Override
-			public void run() {
-				if (MetaHandler.isTagged(player) == false) {
-					cancel();
-				}
-				Firework firework = spawnFireworks(player);
-				firework.detonate();
-			}
-		}.runTaskTimer(HotPotatoMain.getPlugin(), 20, 20);
+		
+		//Temporarily disable
+		
+//		new BukkitRunnable(){
+//			@Override
+//			public void run() {
+//				if (MetaHandler.isTagged(player) == false) {
+//					cancel();
+//				}
+//				World world = player.getWorld();
+//				world.spawnParticle(Particle.LAVA, player.getLocation().getX(), player.getLocation().getY() + 1,
+//						player.getLocation().getZ(), 10);
+				// Firework firework = spawnFireworks(player);
+				// firework.detonate();
+//			}
+//		}.runTaskTimer(HotPotatoMain.getPlugin(), 20, 20);
 	}
 	
+	/*
 	private static FireworkEffect buildFirework() {
 		Color red = Color.RED;
 		FireworkEffect builtFirework = FireworkEffect.builder().withColor(red).build();
 		return builtFirework;
 	}
+	*/
 	
 	
 }

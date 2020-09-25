@@ -1,4 +1,4 @@
-package me.CloverCola.HotPotato.TaggedPlayer;
+package me.CloverCola.HotPotato.GameMechanics.TaggedPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
