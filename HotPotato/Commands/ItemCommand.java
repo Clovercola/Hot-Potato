@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.ConfigUtilities.ArenaExistance;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 
 public class ItemCommand {
 
@@ -16,7 +16,7 @@ public class ItemCommand {
 		// hotpotato item create/delete <ItemSpawnName> <Arena>
 		if (args.length == 4) {
 			String check = args[1];
-			LocationManager manager = new LocationManager();
+			LocationFileManager manager = new LocationFileManager();
 			String name = args[3];
 			if (ArenaExistance.doesArenaExist(manager, args[3]) == false) {
 				ArenaExistance.warnMissingArena(player, name);
@@ -36,13 +36,13 @@ public class ItemCommand {
 		return;
 	}
 
-	private static void createItemSpawn(LocationManager manager, Player player, String name) {
+	private static void createItemSpawn(LocationFileManager manager, Player player, String name) {
 		// TODO
 		player.sendMessage("Items aren't implemented yet, and may not even be implemented AT ALL, so I'll fill this in"
 				+ "if and when I decide we're gonna have items.");
 	}
 
-	private static void deleteItemSpawn(LocationManager manager, Player player, String name) {
+	private static void deleteItemSpawn(LocationFileManager manager, Player player, String name) {
 		// TODO
 		player.sendMessage("Items aren't implemented yet, and may not even be implemented AT ALL, so I'll fill this in"
 				+ "if and when I decide we're gonna have items.");

@@ -63,7 +63,6 @@ public class Commands implements CommandExecutor {
 			SpawnCommand.checkSpawnCommand(player, args);
 			return;
 		case "TEST":
-			player.sendMessage(ChatColor.LIGHT_PURPLE + "Currently disabled.");
 			return;
 		default:
 			HelpCommand.hotPotatoHelp(player);

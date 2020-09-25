@@ -9,12 +9,14 @@ import org.bukkit.entity.Player;
 import me.CloverCola.HotPotato.Commands.LobbyCommand;
 import me.CloverCola.HotPotato.DataClasses.ArenaStatus;
 import me.CloverCola.HotPotato.DataClasses.InventoryStatusObject;
+import me.CloverCola.HotPotato.GameMechanics.StartArena;
+import me.CloverCola.HotPotato.GameMechanics.WinCondition;
 
-public class StatusCheck {
+public class StatusManager {
 
 	private static HashMap<String, ArenaStatus> arenaList = new HashMap<String, ArenaStatus>();
 
-	public StatusCheck() {
+	public StatusManager() {
 
 	}
 
@@ -46,7 +48,7 @@ public class StatusCheck {
 	}
 
 	public static void removeAllPlayersFromArena(String arenaName) {
-		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		ArrayList<Player> playerList = StatusManager.getAllPlayersFromArena(arenaName);
 		while (playerList.isEmpty() == false) {
 			leave(playerList.get(0));
 		}
@@ -120,6 +122,9 @@ public class StatusCheck {
 	}
 	
 	public static void removePlayer(Player player) {
+		if (player == null) {
+			return;
+		}
 		retrieveInventory(player);
 		String arenaName = MetaHandler.getArena(player);
 		arenaList.get(arenaName).getWaitingPlayers().remove(player);

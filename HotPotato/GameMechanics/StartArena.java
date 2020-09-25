@@ -1,4 +1,4 @@
-package me.CloverCola.HotPotato;
+package me.CloverCola.HotPotato.GameMechanics;
 
 import java.util.ArrayList;
 
@@ -7,15 +7,16 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.HotPotatoMain;
+import me.CloverCola.HotPotato.StatusManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
+import me.CloverCola.HotPotato.GameMechanics.TaggedPlayer.ChooseTaggedPlayer;
 import me.CloverCola.HotPotato.StorageUtilities.LocationDeserializationUtility;
-import me.CloverCola.HotPotato.TaggedPlayer.ChooseTaggedPlayer;
-import me.CloverCola.HotPotato.TaggedPlayer.PotatoTimer;
 
 public class StartArena {
 
 	public static void checkIfCanStart(String arenaName) {
-		int count = StatusCheck.getPlayerCount(arenaName);
+		int count = StatusManager.getPlayerCount(arenaName);
 		if (count < 2) {
 			return;
 		}
@@ -39,7 +40,7 @@ public class StartArena {
 				}
 				time--;
 			}
-		}.runTaskTimer(HotPotatoMain.getPlugin(), 20, 20);
+		}.runTaskTimer(HotPotatoMain.getInstance(), 20, 20);
 		return;
 	}
 
@@ -61,7 +62,7 @@ public class StartArena {
 	}
 
 	private static void notification(String arenaName, int time) {
-		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		ArrayList<Player> playerList = StatusManager.getAllPlayersFromArena(arenaName);
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).sendMessage(ChatColor.GREEN + "The game will start in " + time + " seconds!");
 		}
@@ -69,8 +70,8 @@ public class StartArena {
 	}
 
 	public static void start(String arenaName) {
-		StatusCheck.setStarted(arenaName, true);
-		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		StatusManager.setStarted(arenaName, true);
+		ArrayList<Player> playerList = StatusManager.getAllPlayersFromArena(arenaName);
 		Location loc = getSpawnLoc(arenaName);
 		Player player;
 		for (int i = 0; i < playerList.size(); i++) {
@@ -84,12 +85,12 @@ public class StartArena {
 				ChooseTaggedPlayer.randomTaggedPlayer(arenaName);
 				PotatoTimer.activateTimer(arenaName);
 			}
-		}.runTaskLater(HotPotatoMain.getPlugin(), 60);
+		}.runTaskLater(HotPotatoMain.getInstance(), 60);
 		return;
 	}
 
 	private static Location getSpawnLoc(String arenaName) {
-		LocationManager manager = new LocationManager();
+		LocationFileManager manager = new LocationFileManager();
 		String locString = (String) manager.getConfig().get("locations.arenas." + arenaName + ".spawn");
 		LocationDeserializationUtility util = new LocationDeserializationUtility();
 		Location loc = util.convertStringToLocation(locString);

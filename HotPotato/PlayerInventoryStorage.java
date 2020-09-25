@@ -18,7 +18,7 @@ public class PlayerInventoryStorage {
 	}
 	
 	public static void storeInventory(Player player, InventoryStatusObject inv) {
-		FixedMetadataValue meta = new FixedMetadataValue(HotPotatoMain.getPlugin(), inv);
+		FixedMetadataValue meta = new FixedMetadataValue(HotPotatoMain.getInstance(), inv);
 		player.setMetadata("HotPotatoStoredInventory", meta);
 		clearPlayer(player);
 		return;
@@ -50,7 +50,7 @@ public class PlayerInventoryStorage {
 		}
 		InventoryStatusObject status = (InventoryStatusObject) meta.value();
 		// Deletes the ISO metadata off the player.
-		player.removeMetadata("HotPotatoStoredInventory", HotPotatoMain.getPlugin());
+		player.removeMetadata("HotPotatoStoredInventory", HotPotatoMain.getInstance());
 		player.getInventory().setContents(status.getItems());
 		player.setLevel(status.getPlayerLevel());
 		player.setExp(status.getExpPoints());

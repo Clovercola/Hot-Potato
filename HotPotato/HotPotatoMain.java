@@ -2,13 +2,13 @@ package me.CloverCola.HotPotato;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.CloverCola.HotPotato.Commands.Commands;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
+import me.CloverCola.HotPotato.GameMechanics.PotatoPass;
+import me.CloverCola.HotPotato.GameMechanics.PotatoTimer;
+import me.CloverCola.HotPotato.GameMechanics.TaggedPlayer.TaggedFireworks;
 import me.CloverCola.HotPotato.SafetyEvents.PlayerQuit;
 import me.CloverCola.HotPotato.SafetyEvents.PreventFireworkDamage;
 import me.CloverCola.HotPotato.SafetyEvents.PreventItemMovement;
-import me.CloverCola.HotPotato.TaggedPlayer.PotatoPass;
-import me.CloverCola.HotPotato.TaggedPlayer.PotatoTimer;
-import me.CloverCola.HotPotato.TaggedPlayer.TaggedFireworks;
 
 public class HotPotatoMain extends JavaPlugin{
 	
@@ -25,13 +25,13 @@ public class HotPotatoMain extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new PreventFireworkDamage(), this);
 		this.getServer().getPluginManager().registerEvents(new PotatoPass(), this);
 		this.saveConfig();
-		LocationManager initialize = new LocationManager();
+		LocationFileManager initialize = new LocationFileManager();
 		initialize.saveConfig();
 		}
 	
 	@Override
 	public void onDisable() {
-		StatusCheck.emptyAllArenas();
+		StatusManager.emptyAllArenas();
 		PotatoTimer.shutDownBossBars();
 	}
 	

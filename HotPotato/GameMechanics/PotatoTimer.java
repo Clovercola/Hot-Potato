@@ -1,4 +1,4 @@
-package me.CloverCola.HotPotato.TaggedPlayer;
+package me.CloverCola.HotPotato.GameMechanics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.CloverCola.HotPotato.HotPotatoMain;
-import me.CloverCola.HotPotato.StatusCheck;
+import me.CloverCola.HotPotato.StatusManager;
 
 public class PotatoTimer implements Listener {
 	
@@ -52,7 +52,7 @@ public class PotatoTimer implements Listener {
 	}
 	
 	private static void connectToBossBar(String arenaName, BossBar timerBar) {
-		ArrayList<Player> playerList = StatusCheck.getAllPlayersFromArena(arenaName);
+		ArrayList<Player> playerList = StatusManager.getAllPlayersFromArena(arenaName);
 		Player player;
 		for (int i = 0; i < playerList.size(); i++) {
 			player = playerList.get(i);

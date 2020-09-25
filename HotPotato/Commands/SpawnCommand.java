@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.ConfigUtilities.ArenaExistance;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 import me.CloverCola.HotPotato.StorageUtilities.LocationSerializationUtility;
 
 public class SpawnCommand {
@@ -25,7 +25,7 @@ public class SpawnCommand {
 	}
 	
 	private static void setSpawn(Player player, String name) {
-		LocationManager spawnSetter = new LocationManager();
+		LocationFileManager spawnSetter = new LocationFileManager();
 		if (ArenaExistance.doesArenaExist(spawnSetter, name) == false) {
 			ArenaExistance.warnMissingArena(player, name);
 			return;

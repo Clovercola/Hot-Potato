@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.CloverCola.HotPotato.ConfigUtilities.ArenaExistance;
-import me.CloverCola.HotPotato.ConfigUtilities.LocationManager;
+import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 
 public class CreateCommand {
 
@@ -22,7 +22,7 @@ public class CreateCommand {
 	}
 
 	private static void createArena(Player player, String name) {
-		LocationManager arenaCreator = new LocationManager();
+		LocationFileManager arenaCreator = new LocationFileManager();
 		if (ArenaExistance.doesArenaExist(arenaCreator, name) == true) {
 			player.sendMessage(ChatColor.RED + "The arena " + name + " already exists!");
 			return;
