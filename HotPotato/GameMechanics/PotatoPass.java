@@ -1,4 +1,4 @@
-package me.CloverCola.HotPotato.TaggedPlayer;
+package me.CloverCola.HotPotato.GameMechanics;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.CloverCola.HotPotato.MetaHandler;
+import me.CloverCola.HotPotato.GameMechanics.TaggedPlayer.TaggedHub;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;

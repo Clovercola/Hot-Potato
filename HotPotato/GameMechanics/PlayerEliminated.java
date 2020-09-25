@@ -1,20 +1,20 @@
-package me.CloverCola.HotPotato.TaggedPlayer;
+package me.CloverCola.HotPotato.GameMechanics;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.CloverCola.HotPotato.HotPotatoMain;
-import me.CloverCola.HotPotato.StatusCheck;
-import me.CloverCola.HotPotato.WinCondition;
+import me.CloverCola.HotPotato.StatusManager;
 import me.CloverCola.HotPotato.Commands.LobbyCommand;
+import me.CloverCola.HotPotato.GameMechanics.TaggedPlayer.ChooseTaggedPlayer;
 
 public class PlayerEliminated {
 	
 	public static void eliminate(String arenaName) {
-		Player player = StatusCheck.getTaggedFromArena(arenaName);
+		Player player = StatusManager.getTaggedFromArena(arenaName);
 		player.sendMessage(ChatColor.RED + "You were eliminated! Better luck next time!");
-		StatusCheck.removePlayer(player);
+		StatusManager.removePlayer(player);
 		LobbyCommand.teleportToLobby(player);
 		chooseNewTagged(arenaName);
 		return;
