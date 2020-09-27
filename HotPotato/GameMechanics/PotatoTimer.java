@@ -13,10 +13,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.CloverCola.HotPotato.HotPotatoMain;
 import me.CloverCola.HotPotato.StatusManager;
+import me.CloverCola.HotPotato.DataClasses.TimerData;
 
 public class PotatoTimer implements Listener {
-	
-	private static HashMap<String, BossBar> timerList = new HashMap<String, BossBar>();
+
+	private static HashMap<String, TimerData> timerList = new HashMap<String, TimerData>();
 
 	public PotatoTimer() {
 		// Empty Constructor
@@ -25,32 +26,31 @@ public class PotatoTimer implements Listener {
 	public static void activateTimer(String arenaName) {
 		BossBar timerBar = Bukkit.createBossBar("Fuse", BarColor.RED, BarStyle.SOLID);
 		connectToBossBar(arenaName, timerBar);
-		timerList.putIfAbsent(arenaName, timerBar);
+		// Countdown temporarily lowered for testing
+		int countdown = 5;
+		TimerData timer = new TimerData(timerBar, countdown);
+		timerList.put(arenaName, timer);
 		new BukkitRunnable() {
-			//Countdown temporarily lowered for testing
-			int countDown = 10;
 			double progress = 1.0;
-			double lower = 1.0 / countDown;
+			double reduction = 1.0 / timer.getTime();
+
 			@Override
 			public void run() {
-				if (countDown == 0) {
-//					player.sendMessage("The potato has exploded!");
+				if (timer.getTime() == 0) {
 					timerBar.setProgress(0.0);
 					timerBar.removeAll();
 					PlayerEliminated.eliminate(arenaName);
 					cancel();
-				}
-				else {
-//					player.sendMessage("Time left: " + countDown);
-					countDown -= 1;
-					progress -= lower;
+				} else {
+					timer.setTime(timer.getTime() - 1);
+					progress -= reduction;
 					timerBar.setProgress(progress);
 				}
 			}
 		}.runTaskTimer(HotPotatoMain.getInstance(), 0, 20);
 		return;
 	}
-	
+
 	private static void connectToBossBar(String arenaName, BossBar timerBar) {
 		ArrayList<Player> playerList = StatusManager.getAllPlayersFromArena(arenaName);
 		Player player;
@@ -60,14 +60,13 @@ public class PotatoTimer implements Listener {
 		}
 		return;
 	}
-	
+
 	public static void shutDownBossBars() {
 		for (String arenaName : timerList.keySet()) {
-			timerList.get(arenaName).removeAll();
-			timerList.remove(arenaName);
+			timerList.get(arenaName).getBossBar().removeAll();
 		}
+
 		return;
 	}
-	
-	
+
 }
