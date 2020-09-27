@@ -10,23 +10,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.CloverCola.HotPotato.MetaHandler;
 import me.CloverCola.HotPotato.StatusManager;
 
 public class TrackerItem {
-	
+
 	private static HashMap<Player, Long> cooldown = new HashMap<Player, Long>();
 
 	public TrackerItem() {
-		
+
 	}
-	
+
 	public static ItemStack create() {
 		ItemStack item = new ItemStack(Material.COMPASS, 1);
 		ItemMeta meta = metaCreator(item);
 		item.setItemMeta(meta);
 		return item;
 	}
-	
+
 	private static ItemMeta metaCreator(ItemStack item) {
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.GREEN + "Tracker");
@@ -37,17 +38,22 @@ public class TrackerItem {
 		meta.setLore(lore);
 		return meta;
 	}
-	
-	
+
 	public static void activate(String arenaName, Player player) {
 		if (StatusManager.getTaggedFromArena(arenaName) == null) {
 			return;
 		}
-		if (cooldown.containsKey(player) && cooldown.get(player) > System.currentTimeMillis()) {
-			player.sendMessage(ChatColor.RED + "The tracker is still on cooldown for " + cooldown.get(player) + " seconds!");
+		// Since Player cannot be null, you have to check if the tagged player is
+		// still actually alive.
+		Player tagged = StatusManager.getTaggedFromArena(arenaName);
+		if (MetaHandler.isAlive(player) == false) {
 			return;
 		}
-		Player tagged = StatusManager.getTaggedFromArena(arenaName);
+		if (cooldown.containsKey(player) && cooldown.get(player) > System.currentTimeMillis()) {
+			player.sendMessage(
+					ChatColor.RED + "The tracker is still on cooldown for " + cooldown.get(player) + " seconds!");
+			return;
+		}
 		player.setCompassTarget(tagged.getLocation());
 		cooldown.put(player, System.currentTimeMillis() + 2000);
 		return;
