@@ -26,6 +26,7 @@ public class PlayerArenaStatus {
 		this.setArenaName(arenaName);
 		this.setTagged(false);
 		this.setAliveStatus(true);
+		this.setSlowImmune(false);
 	}
 
 	/**
