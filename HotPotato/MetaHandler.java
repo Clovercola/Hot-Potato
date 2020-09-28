@@ -61,6 +61,17 @@ public class MetaHandler {
 		return;
 	}
 	
+	public static boolean isSlowImmune(Player player) {
+		PlayerArenaStatus status = getStatusMetadata(player);
+		return status.isSlowImmune();
+	}
+	
+	public static void setSlowImmune(Player player, boolean immuneStatus) {
+		PlayerArenaStatus status = getStatusMetadata(player);
+		status.setSlowImmune(immuneStatus);
+		return;
+	}
+	
 	public static void removeMetadata(Player player) {
 		player.removeMetadata("HotPotatoStatus", HotPotatoMain.getInstance());
 	}
