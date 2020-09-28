@@ -8,6 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.CloverCola.HotPotato.DataClasses.TimerData;
+import me.CloverCola.HotPotato.GameMechanics.PotatoTimer;
+
 public class BackupFuseItem {
 
 	public BackupFuseItem() {
@@ -32,8 +35,17 @@ public class BackupFuseItem {
 		return meta;
 		}
 
-	public static void activate() {
-
+	public static void activate(String arenaName) {
+		TimerData data = PotatoTimer.getTimerData(arenaName);
+		//Currently always "30" since config is not set up yet.
+		int time = data.getTime();
+		if (time + 5 > 30) {
+			data.setTime(30);
+		}
+		else {
+			data.setTime(time + 5);
+		}
+		return;
 	}
 
 }
