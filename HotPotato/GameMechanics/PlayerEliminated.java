@@ -14,7 +14,6 @@ public class PlayerEliminated {
 	public static void eliminate(String arenaName) {
 		Player player = StatusManager.getTaggedFromArena(arenaName);
 		player.sendMessage(ChatColor.RED + "You were eliminated! Better luck next time!");
-		StatusManager.setTaggedInArena(null);
 		StatusManager.removePlayer(player);
 		LobbyCommand.teleportToLobby(player);
 		chooseNewTagged(arenaName);
