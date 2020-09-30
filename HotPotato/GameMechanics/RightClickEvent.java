@@ -2,6 +2,7 @@ package me.CloverCola.HotPotato.GameMechanics;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -14,6 +15,7 @@ import me.CloverCola.HotPotato.Items.WebShooterItem;
 
 public class RightClickEvent implements Listener {
 
+	@EventHandler
 	public void rightClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		if (MetaHandler.inArena(player) == false) {
