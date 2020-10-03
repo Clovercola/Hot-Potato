@@ -5,6 +5,7 @@ import me.CloverCola.HotPotato.Commands.Commands;
 import me.CloverCola.HotPotato.ConfigUtilities.LocationFileManager;
 import me.CloverCola.HotPotato.GameMechanics.PotatoPass;
 import me.CloverCola.HotPotato.GameMechanics.PotatoTimer;
+import me.CloverCola.HotPotato.GameMechanics.RightClickEvent;
 import me.CloverCola.HotPotato.GameMechanics.TaggedPlayer.TaggedFireworks;
 import me.CloverCola.HotPotato.SafetyEvents.PlayerQuit;
 import me.CloverCola.HotPotato.SafetyEvents.PreventFireworkDamage;
@@ -24,6 +25,7 @@ public class HotPotatoMain extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new TaggedFireworks(), this);
 		this.getServer().getPluginManager().registerEvents(new PreventFireworkDamage(), this);
 		this.getServer().getPluginManager().registerEvents(new PotatoPass(), this);
+		this.getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
 		this.saveConfig();
 		LocationFileManager initialize = new LocationFileManager();
 		initialize.saveConfig();
