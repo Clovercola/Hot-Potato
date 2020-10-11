@@ -43,10 +43,11 @@ public class FuseCutterItem {
 		//Currently always "10" since config is not set up yet.
 		int time = data.getTime();
 		if (time - 5 < 10) {
-			data.setTime(30);
+			//Don't activate if timer is too low.
+			return;
 		}
 		else {
-			data.setTime(time + 5);
+			data.setTime(time - 5);
 		}
 		return;
 	}
