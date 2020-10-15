@@ -21,14 +21,14 @@ public class TaggedHub {
 		StatusManager.setTaggedInArena(player);
 		TaggedPlayerItems.equipItems(player);
 		TaggedFireworks.fireworksTimer(player);
+		TaggedPlayerEffects.applySpeed(player);
 		return;
 	}
 	
-	//Aside from being a cutesy name, this helps communicate what this method does.
-	//I swear that's genuinely why I chose it.
 	public static void disarm(Player player) {
 		MetaHandler.setTagged(player, false);
 		ItemStack air = new ItemStack(Material.AIR);
+		TaggedPlayerEffects.removeEffects(player);
 		player.getInventory().setHelmet(air);
 		player.getInventory().setItemInOffHand(air);
 		return;
