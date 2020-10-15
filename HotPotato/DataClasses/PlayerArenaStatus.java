@@ -14,8 +14,9 @@ import org.bukkit.entity.Player;
 public class PlayerArenaStatus {
 
 	private String arenaName;
-	private boolean isTagged;
 	private boolean isAlive;
+	private boolean isTagged;
+	private boolean slowImmune;
 
 	public PlayerArenaStatus() {
 		// Constructor for accessing class
@@ -25,6 +26,7 @@ public class PlayerArenaStatus {
 		this.setArenaName(arenaName);
 		this.setTagged(false);
 		this.setAliveStatus(true);
+		this.setSlowImmune(false);
 	}
 
 	/**
@@ -42,6 +44,20 @@ public class PlayerArenaStatus {
 	}
 
 	/**
+	 * @return the whether the player is alive in any arena.
+	 */
+	public boolean isPlayerAlive() {
+		return isAlive;
+	}
+
+	/**
+	 * @param isAlive whether the player is alive in an arena or not.
+	 */
+	public void setAliveStatus(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
+
+	/**
 	 * @return whether the player currently has the Hot Potato.
 	 */
 	public boolean isTagged() {
@@ -56,17 +72,17 @@ public class PlayerArenaStatus {
 	}
 
 	/**
-	 * @return the whether the player is alive in any arena.
+	 * @return the slowImmune
 	 */
-	public boolean isPlayerAlive() {
-		return isAlive;
+	public boolean isSlowImmune() {
+		return slowImmune;
 	}
 
 	/**
-	 * @param isAlive whether the player is alive in an arena or not.
+	 * @param slowImmune the slowImmune to set
 	 */
-	public void setAliveStatus(boolean isAlive) {
-		this.isAlive = isAlive;
+	public void setSlowImmune(boolean slowImmune) {
+		this.slowImmune = slowImmune;
 	}
 
 }
