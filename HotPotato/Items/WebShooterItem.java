@@ -29,7 +29,7 @@ public class WebShooterItem {
 
 	private static ItemMeta metaCreator(ItemStack item) {
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(ChatColor.YELLOW + "Web Shooter");
+		meta.setDisplayName(ChatColor.WHITE + "Web Shooter");
 		List<String> lore = new ArrayList<String>();
 		lore.add(ChatColor.GRAY + "Right-click to use.");
 		lore.add(ChatColor.YELLOW + "Slows down everyone");
