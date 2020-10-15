@@ -50,8 +50,10 @@ public class TrackerItem {
 			return;
 		}
 		if (cooldown.containsKey(player) && cooldown.get(player) > System.currentTimeMillis()) {
+			//Change how this works so it shows how many milliseconds there are.
+			double timeLeft = ((cooldown.get(player) - System.currentTimeMillis())) / 1000;
 			player.sendMessage(
-					ChatColor.RED + "The tracker is still on cooldown for " + cooldown.get(player) + " seconds!");
+					ChatColor.RED + "The tracker is still on cooldown for " + timeLeft + " seconds!");
 			return;
 		}
 		player.setCompassTarget(tagged.getLocation());
