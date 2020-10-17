@@ -15,6 +15,7 @@ public class PlayerEliminated {
 		Player player = StatusManager.getTaggedFromArena(arenaName);
 		player.sendMessage(ChatColor.RED + "You were eliminated! Better luck next time!");
 		StatusManager.removePlayer(player);
+		PotatoTimer.removeFromBossBar(arenaName, player);
 		LobbyCommand.teleportToLobby(player);
 		chooseNewTagged(arenaName);
 		return;

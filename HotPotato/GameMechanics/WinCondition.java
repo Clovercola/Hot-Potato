@@ -24,6 +24,7 @@ public class WinCondition {
 		player.sendMessage(ChatColor.GOLD + "Congratulations! You won!");
 		StatusManager.removePlayer(player);
 		LobbyCommand.teleportToLobby(player);
+		PotatoTimer.emptyBossBar(arenaName);
 		StatusManager.shutdownArena(arenaName);
 		return;
 	}

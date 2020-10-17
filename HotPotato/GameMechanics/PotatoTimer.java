@@ -19,10 +19,6 @@ import me.CloverCola.HotPotato.DataClasses.TimerData;
 public class PotatoTimer implements Listener {
 
 	private static HashMap<String, TimerData> timerList = new HashMap<String, TimerData>();
-
-	public PotatoTimer() {
-		// Empty Constructor
-	}
 	
 	public static TimerData getTimerData(String arenaName) {
 		return timerList.get(arenaName);
@@ -48,6 +44,12 @@ public class PotatoTimer implements Listener {
 
 			@Override
 			public void run() {
+				//Runs this statement if the game has been ended prematurely.
+				//This usually happens if the second-to-last player leaves.
+				if (timerList.containsKey(arenaName) == false) {
+					cancel();
+				}
+				
 				if (timer.getTime() - 1 <= 0) {
 					timerBar.setProgress(0.0);
 					timerBar.removeAll();
@@ -70,6 +72,15 @@ public class PotatoTimer implements Listener {
 		return;
 	}
 
+	private static void setExpLevelTimer(ArrayList<Player> playerList, int time) {
+		Player player;
+		for (int i = 0; i < playerList.size(); i++) {
+			player = playerList.get(i);
+			player.setLevel(time);
+		}
+			
+	}
+	
 	private static void connectToBossBar(String arenaName, BossBar timerBar) {
 		ArrayList<Player> playerList = StatusManager.getAllPlayersFromArena(arenaName);
 		Player player;
@@ -80,13 +91,15 @@ public class PotatoTimer implements Listener {
 		return;
 	}
 	
-	private static void setExpLevelTimer(ArrayList<Player> playerList, int time) {
-		Player player;
-		for (int i = 0; i < playerList.size(); i++) {
-			player = playerList.get(i);
-			player.setLevel(time);
-		}
-			
+	public static void removeFromBossBar(String arenaName, Player player) {
+		timerList.get(arenaName).getBossBar().removePlayer(player);
+		return;
+	}
+	
+	public static void emptyBossBar(String arenaName) {
+		timerList.get(arenaName).getBossBar().removeAll();
+		timerList.remove(arenaName);
+		return;
 	}
 
 	public static void shutDownBossBars() {
